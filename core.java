@@ -14,6 +14,9 @@ public class core {
     }
 
     //IP Lookup
+    public IPLookupTool startIPLookupTool(){
+        return new IPLookupTool();
+    }
 
     //
 

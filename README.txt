@@ -11,6 +11,15 @@ A log for changes made as OTX-V is developed.
 
     Pulls both services & collections into the cache.  Still working on extracting pulse information.
 
+    Large breakthrough.  TAXII uses STIX markup language for its CTI objects.  OTX has not updated its
+    information storage protocol & stores & sends everything in STIX 1.0, an outdated version.
+    This is presumably why I've had so much trouble trying to extract pulse information from the raw files.
+    The STIX files now require a conversion "elevator" in order to be read within the cabby driver.
+    I was not anticipating this and am upset that it ate up so much time.  At the very least,
+    I now know why I've struggled to extract the data from the raw server data I'e been downloading.
+    I also do not anticipate STIX will take very long to learn, as it's just abstracted XML.
+    I will be patching this up over the weekend.
+
 ------------------------------------------------------------------------------------------
 
 2/20/2018

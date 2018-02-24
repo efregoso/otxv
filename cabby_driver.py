@@ -1,4 +1,5 @@
 from cabby import create_client
+from stix2elevator import elevate_file
 import json
 import io
 
@@ -19,23 +20,29 @@ def main():
     # IN PROGRESS: basic authentication -- password ignored in favor of full API key
     # client.set_auth(username=OTX_API_KEY, password=OTX_PASSWORD)
 
-    # create a cache stream to a text file to test
-    f = open("testcache.txt", "w")
+    # create a cache stream to an XML file to test
+    f = open("stix_test.xml", "w")
 
     # pull services from OTX
-    services = client.discover_services()
+    # services = client.discover_services()
 
     # write the service names to the cache
-    f.write("Services available:\n")
-    for service in services:
-        f.write('Service type={s.type}, \naddress={s.address}\n'.format(s=service))
+    # f.write("Services available:\n")
+    # for service in services:
+    #    f.write('Service type={s.type}, \naddress={s.address}\n'.format(s=service))
     # otx_get(f)
 
     # write the collections names to the cache
-    f.write("\n\nCollection of user AlienVault:\n")
+    # f.write("\n\nCollection of user AlienVault:\n")
     collections = client.poll(collection_name="user_AlienVault")
     for collection in collections:
         f.write(collection.content.decode("utf-8"))
+
+    # convert the stix 1.0 to 2.0 json objects & copy to new cache
+    # SYSTEM HANGS HERE -- DEBUGGING
+    results = elevate_file("stix_test.xml")
+    fi = open("testcache2.txt", "w")
+    fi.write(results)
 
     #IN PROGRESS -- extract pulse information from the collections and services
     #   for display in the interface
