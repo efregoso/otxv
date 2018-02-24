@@ -16,6 +16,7 @@ def main():
     f = open("testcache.txt", "w")
 
     # pull in a pulse & write it to the cache
+    # IN PROGRESS - currently only write simple Hello.
     f.write("Hello")
 
 
