@@ -9,7 +9,7 @@ A log for changes made as OTX-V is developed.
     Made progress on the cabby_driver.py file.  Have set up essentials for writing to a cache file.
     Still working on modifying Cabby to deliver pulses from OTX to the cache file.
 
-    Pulls services & copies them into the cache.  Still working on extracting pulse information.
+    Pulls both services & collections into the cache.  Still working on extracting pulse information.
 
 ------------------------------------------------------------------------------------------
 
