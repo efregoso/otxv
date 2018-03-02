@@ -3,6 +3,16 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
+3/2/2018
+
+    Started trying to use taxii2-client instead of Cabby to see if I get better results.
+
+    Have abandoned taxii2-client for OXTv2 library.  It looks like this delivers JSON objects
+    in STIX 2.0, instead of trying to force Cabby to give me information.
+
+
+
+------------------------------------------------------------------------------------------
 
 2/23/2018
 
