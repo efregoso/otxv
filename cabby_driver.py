@@ -1,4 +1,7 @@
 from OTXv2 import OTXv2
+import elasticsearch
+from ipwhois import IPWhois
+import pprint
 import json
 from OTXv2 import IndicatorTypes
 from pandas.io.json import json_normalize
@@ -20,12 +23,25 @@ def main():
     cachef = open(cache, "w")
     #get all subscribed pulses
     pulses = otx.getall()
-    #WIP: save to cache document
+    #WIP: save all indicator data to cache document
     for indicator in pulses:
         cachef.write(indicator["name"] + "\n")
+    #run the IP lookup tool on Case IP
+    #lookup_ip_info("129.22.21.193")
     #signal that the program is done
     print("System done")
     exit()
+
+#Lookup DNS information about a given IP address using the ____ API.
+def lookup_ip_info(ip):
+    #create a whois instance for the given IP
+    whois = IPWhois(ip)
+    #lookup the information for this IP & place it in ipresults in a "pretty print" format
+    ipresults = pprint.pformat(whois.lookup_rdap());
+    #open a file stream for a demo lookup cache
+    lookupf = open("lookup.txt", "w")
+    #write the results into the demo lookup cache
+    lookupf.write(ipresults)
 
 
 if __name__ == '__main__':

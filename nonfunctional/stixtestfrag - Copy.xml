@@ -1,0 +1,418 @@
+<stix:STIX_Package xmlns:cyboxCommon="http://cybox.mitre.org/common-2" xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:cyboxVocabs="http://cybox.mitre.org/default_vocabularies-2" xmlns:DomainNameObj="http://cybox.mitre.org/objects#DomainNameObject-1" xmlns:FileObj="http://cybox.mitre.org/objects#FileObject-2" xmlns:URIObj="http://cybox.mitre.org/objects#URIObject-2" xmlns:indicator="http://stix.mitre.org/Indicator-2" xmlns:stixCommon="http://stix.mitre.org/common-1" xmlns:stixVocabs="http://stix.mitre.org/default_vocabularies-1" xmlns:yaraTM="http://stix.mitre.org/extensions/TestMechanism#YARA-1" xmlns:stix="http://stix.mitre.org/stix-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alienvault-otx="https://otx.alienvault.com" xmlns:taxii="http://taxii.mitre.org/messages/taxii_xml_binding-1" xmlns:taxii_11="http://taxii.mitre.org/messages/taxii_xml_binding-1.1" xmlns:tdq="http://taxii.mitre.org/query/taxii_default_query-1" xsi:schemaLocation="  http://cybox.mitre.org/common-2 http://cybox.mitre.org/XMLSchema/common/2.1/cybox_common.xsd  http://cybox.mitre.org/cybox-2 http://cybox.mitre.org/XMLSchema/core/2.1/cybox_core.xsd  http://cybox.mitre.org/default_vocabularies-2 http://cybox.mitre.org/XMLSchema/default_vocabularies/2.1/cybox_default_vocabularies.xsd  http://cybox.mitre.org/objects#DomainNameObject-1 http://cybox.mitre.org/XMLSchema/objects/Domain_Name/1.0/Domain_Name_Object.xsd  http://cybox.mitre.org/objects#FileObject-2 http://cybox.mitre.org/XMLSchema/objects/File/2.1/File_Object.xsd  http://cybox.mitre.org/objects#URIObject-2 http://cybox.mitre.org/XMLSchema/objects/URI/2.1/URI_Object.xsd  http://stix.mitre.org/Indicator-2 http://stix.mitre.org/XMLSchema/indicator/2.1.1/indicator.xsd  http://stix.mitre.org/common-1 http://stix.mitre.org/XMLSchema/common/1.1.1/stix_common.xsd  http://stix.mitre.org/default_vocabularies-1 http://stix.mitre.org/XMLSchema/default_vocabularies/1.1.1/stix_default_vocabularies.xsd  http://stix.mitre.org/extensions/TestMechanism#YARA-1 http://stix.mitre.org/XMLSchema/extensions/test_mechanism/yara/1.1.1/yara_test_mechanism.xsd  http://stix.mitre.org/stix-1 http://stix.mitre.org/XMLSchema/core/1.1.1/stix_core.xsd" id="alienvault-otx:Package-87ddb40d-c31a-4955-bd4d-d72d1291cfda" version="1.1.1" timestamp="2018-02-24T04:10:32.595024+00:00">
+    <stix:STIX_Header>
+        <stix:Title>PoS Scammers Toolbox</stix:Title>
+        <stix:Package_Intent xsi:type="stixVocabs:PackageIntentVocab-1.0">Indicators</stix:Package_Intent>
+        <stix:Description/>
+        <stix:Short_Description>https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</stix:Short_Description>
+        <stix:Information_Source>
+            <stixCommon:Description>Alienvault OTX - https://otx.alienvault.com/</stixCommon:Description>
+            <stixCommon:Identity>
+                <stixCommon:Name>Alienvault OTX</stixCommon:Name>
+            </stixCommon:Identity>
+            <stixCommon:Time>
+                <cyboxCommon:Produced_Time>2017-10-31T23:40:15.891000</cyboxCommon:Produced_Time>
+            </stixCommon:Time>
+        </stix:Information_Source>
+    </stix:STIX_Header>
+    <stix:Indicators>
+        <stix:Indicator id="alienvault-otx:indicator-5a01f059-7ac4-bdf3-5c24-846734ee9a76" timestamp="2018-02-24T04:10:32.596906+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>cyberwise.biz from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-5a01f059-7ac4-bdf3-5c24-846734ee9a76">
+                <cybox:Title>domain - cyberwise.biz</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-03924fbc-a277-492c-8c08-8a8f633db723">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>cyberwise.biz</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-4110a199-4471-c595-f758-3ef1b74ba4cb" timestamp="2018-02-24T04:10:32.597267+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>biketools.ru from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-4110a199-4471-c595-f758-3ef1b74ba4cb">
+                <cybox:Title>domain - biketools.ru</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-8e52328c-5610-45b6-b008-a1ffe8c346f6">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>biketools.ru</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-77edbe5f-897a-5dbc-de49-d31bec1537b8" timestamp="2018-02-24T04:10:32.597576+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>verified-deal.com from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-77edbe5f-897a-5dbc-de49-d31bec1537b8">
+                <cybox:Title>domain - verified-deal.com</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-0060013c-743d-45d1-af87-852212e86007">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>verified-deal.com</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-51be2fed-6c55-f5aa-0c16-ff14c140b187" timestamp="2018-02-24T04:10:32.597876+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>wordpress-catalog.com from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-51be2fed-6c55-f5aa-0c16-ff14c140b187">
+                <cybox:Title>domain - wordpress-catalog.com</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-7d47bb10-965b-400d-8ef7-bb4aafd6d891">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>wordpress-catalog.com</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-53a1320c-b5d2-f561-30ad-5222f93da374" timestamp="2018-02-24T04:10:32.598204+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>kitchentools.ru from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-53a1320c-b5d2-f561-30ad-5222f93da374">
+                <cybox:Title>domain - kitchentools.ru</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-84c97433-7669-4d42-be94-b380323f4342">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>kitchentools.ru</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-24802454-1dbd-a1d3-fd75-fe49d1a4df4d" timestamp="2018-02-24T04:10:32.598507+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>cyclingtools.ru from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-24802454-1dbd-a1d3-fd75-fe49d1a4df4d">
+                <cybox:Title>domain - cyclingtools.ru</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-04749656-9667-4e26-8dc9-c7c4130f9d42">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>cyclingtools.ru</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-9a96a2c7-3c0d-477f-f2a6-da3bf538f4f4" timestamp="2018-02-24T04:10:32.598834+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>wordpress-catalog.com/something/login.php?p=Rome0 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-9a96a2c7-3c0d-477f-f2a6-da3bf538f4f4">
+                <cybox:Title>URL - wordpress-catalog.com/something/login.php?p=Rome0</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-8c82c1cd-42f9-4b45-a1a6-f282af8904db">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>wordpress-catalog.com/something/login.php?p=Rome0</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-a74c3bae-3e13-6161-04c1-b25f9da1f11f" timestamp="2018-02-24T04:10:32.599145+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>https://cyclingtools.ru/phpbb/showtopic.php from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-a74c3bae-3e13-6161-04c1-b25f9da1f11f">
+                <cybox:Title>URL - https://cyclingtools.ru/phpbb/showtopic.php</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-2f91bf0f-5d1d-43c2-8736-06f456685ab8">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>https://cyclingtools.ru/phpbb/showtopic.php</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-e4a93f03-32b2-5191-77ed-55741ea4e5e7" timestamp="2018-02-24T04:10:32.599453+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>https://blog.wordpress-catalog.com/ from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-e4a93f03-32b2-5191-77ed-55741ea4e5e7">
+                <cybox:Title>URL - https://blog.wordpress-catalog.com/</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-25f2332e-df81-4f0f-b995-acd9e1708314">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>https://blog.wordpress-catalog.com/</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-9cb9ed4f-35cf-7c2f-295c-c2bc6f732a84" timestamp="2018-02-24T04:10:32.599759+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>https://verified-deal.com/register/register.php from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-9cb9ed4f-35cf-7c2f-295c-c2bc6f732a84">
+                <cybox:Title>URL - https://verified-deal.com/register/register.php</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-b00a45e3-8084-4c0d-bd97-43797622be3b">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>https://verified-deal.com/register/register.php</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-c8862fc1-a327-2571-2838-863fb1a260b9" timestamp="2018-02-24T04:10:32.600065+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>https://cyberwise.biz/register/register.php from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-c8862fc1-a327-2571-2838-863fb1a260b9">
+                <cybox:Title>URL - https://cyberwise.biz/register/register.php</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-08dd23e4-41fa-4338-8a9e-ac380b0b7aa0">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>https://cyberwise.biz/register/register.php</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-09d37c08-f7b1-29e9-6277-388757530c72" timestamp="2018-02-24T04:10:32.600371+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>https://biketools.ru/phpbb/showtopic.php from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-09d37c08-f7b1-29e9-6277-388757530c72">
+                <cybox:Title>URL - https://biketools.ru/phpbb/showtopic.php</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-76f80933-9dfc-433b-b419-adc5875e139a">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>https://biketools.ru/phpbb/showtopic.php</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-e5522f7a-c7cd-76f1-9b39-6595c9c25b40" timestamp="2018-02-24T04:10:32.600905+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>http://143biz.cc.md-14.webhostbox.net/accounts.wordpress-catalog.com from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-e5522f7a-c7cd-76f1-9b39-6595c9c25b40">
+                <cybox:Title>URL - http://143biz.cc.md-14.webhostbox.net/accounts.wordpress-catalog.com</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-6bd14d98-050c-4b10-9073-aaec741ad043">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>http://143biz.cc.md-14.webhostbox.net/accounts.wordpress-catalog.com</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-2bd235c3-1c97-855b-7ef2-dc8b414779af" timestamp="2018-02-24T04:10:32.601217+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>https://kitchentools.ru/phpbb/showtopic.php from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-2bd235c3-1c97-855b-7ef2-dc8b414779af">
+                <cybox:Title>URL - https://kitchentools.ru/phpbb/showtopic.php</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-7ddf4885-dece-4452-9d89-95b57836acc7">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>https://kitchentools.ru/phpbb/showtopic.php</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-0cdf6103-7d70-53ca-5934-7ab230818335" timestamp="2018-02-24T04:10:32.601581+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>http://143biz.cc.md-14.webhostbox.net from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-0cdf6103-7d70-53ca-5934-7ab230818335">
+                <cybox:Title>URL - http://143biz.cc.md-14.webhostbox.net</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-ba5e19b0-a99c-4b04-b569-a70e360fe16e">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>http://143biz.cc.md-14.webhostbox.net</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-b922ede9-c9eb-9eab-ec1c-1fecbdecb45d" timestamp="2018-02-24T04:10:32.601893+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>http://143biz.cc.md-14.webhostbox.net/something/login.php?p=Rome0 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-b922ede9-c9eb-9eab-ec1c-1fecbdecb45d">
+                <cybox:Title>URL - http://143biz.cc.md-14.webhostbox.net/something/login.php?p=Rome0</cybox:Title>
+                <cybox:Object id="alienvault-otx:URI-3431412d-ffac-4f36-933f-e11a19f96160">
+                    <cybox:Properties xsi:type="URIObj:URIObjectType" type="URL">
+                        <URIObj:Value>http://143biz.cc.md-14.webhostbox.net/something/login.php?p=Rome0</URIObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-a0ba2648-acd2-3dc7-a582-9968ce531a7d" timestamp="2018-02-24T04:10:32.602256+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>143biz.cc.md-14.webhostbox.net from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-a0ba2648-acd2-3dc7-a582-9968ce531a7d">
+                <cybox:Title>hostname - 143biz.cc.md-14.webhostbox.net</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-d0c10e63-4130-4b3e-aae2-f39590311003">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>143biz.cc.md-14.webhostbox.net</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-2d95666e-2649-fcfc-6e3a-f75e09f5adb9" timestamp="2018-02-24T04:10:32.602561+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>blog.wordpress-catalog.com from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-2d95666e-2649-fcfc-6e3a-f75e09f5adb9">
+                <cybox:Title>hostname - blog.wordpress-catalog.com</cybox:Title>
+                <cybox:Object id="alienvault-otx:DomainName-c06230f9-4a00-4d39-8392-ea9fc6d1ef57">
+                    <cybox:Properties xsi:type="DomainNameObj:DomainNameObjectType" type="FQDN">
+                        <DomainNameObj:Value>blog.wordpress-catalog.com</DomainNameObj:Value>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-0cd60efb-5578-cd96-7c3c-23894f305800" timestamp="2018-02-24T04:10:32.602816+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>8b5436ca6e520d6942087bb38e97da65 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-0cd60efb-5578-cd96-7c3c-23894f305800">
+                <cybox:Title>FileHash-MD5 - 8b5436ca6e520d6942087bb38e97da65</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-339173a6-f227-4477-acb0-f0d231eb38aa">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>8b5436ca6e520d6942087bb38e97da65</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-8a56257e-a05c-7401-8291-954fc56fc448" timestamp="2018-02-24T04:10:32.603041+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>0fb00a8ad217abe9d92a1faa397842dc from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-8a56257e-a05c-7401-8291-954fc56fc448">
+                <cybox:Title>FileHash-MD5 - 0fb00a8ad217abe9d92a1faa397842dc</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-c71beaea-ba1a-4025-83da-5162e9e2c427">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>0fb00a8ad217abe9d92a1faa397842dc</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-272e1170-0558-e27b-e60f-7489d2d782e7" timestamp="2018-02-24T04:10:32.603261+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>9223e3472e8ff9ddfa0d0dbad573d530 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-272e1170-0558-e27b-e60f-7489d2d782e7">
+                <cybox:Title>FileHash-MD5 - 9223e3472e8ff9ddfa0d0dbad573d530</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-f2dae5fd-f80b-4848-871b-420e91793fa8">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>9223e3472e8ff9ddfa0d0dbad573d530</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-7b66e893-1c93-da8c-88a0-a8b6dec62f9e" timestamp="2018-02-24T04:10:32.603478+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>f9cbd1c3c48c873f3bff8c957ae280c7 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-7b66e893-1c93-da8c-88a0-a8b6dec62f9e">
+                <cybox:Title>FileHash-MD5 - f9cbd1c3c48c873f3bff8c957ae280c7</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-1a1b0bac-478e-4968-8e90-5ae69f1190e0">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>f9cbd1c3c48c873f3bff8c957ae280c7</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-03bfc1d4-7839-66c6-9cc6-aef8247e0103" timestamp="2018-02-24T04:10:32.603695+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>5843ae35bdeb4ca577054936c5c3944e from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-03bfc1d4-7839-66c6-9cc6-aef8247e0103">
+                <cybox:Title>FileHash-MD5 - 5843ae35bdeb4ca577054936c5c3944e</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-a216628a-e390-48aa-9f7c-8179f9d7e411">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>5843ae35bdeb4ca577054936c5c3944e</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-4b86ca48-d90b-d5f0-978a-fa3a012503a4" timestamp="2018-02-24T04:10:32.604006+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>7a5580ddf2eb2fc4f4a0ea28c40f0da9 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-4b86ca48-d90b-d5f0-978a-fa3a012503a4">
+                <cybox:Title>FileHash-MD5 - 7a5580ddf2eb2fc4f4a0ea28c40f0da9</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-4c0ebc05-9287-48d6-b5b7-e7cf26bfd8a5">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>7a5580ddf2eb2fc4f4a0ea28c40f0da9</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-10ce03a1-ed01-077e-3e28-9f3e53c72813" timestamp="2018-02-24T04:10:32.604228+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>01d12f4f2f0d3019756d83e94e3b564b from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-10ce03a1-ed01-077e-3e28-9f3e53c72813">
+                <cybox:Title>FileHash-MD5 - 01d12f4f2f0d3019756d83e94e3b564b</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-2d819fdf-1592-4f63-9d87-389aa5f7f87b">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>01d12f4f2f0d3019756d83e94e3b564b</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-a92c274b-8be4-96fb-05d9-5033552eeddd" timestamp="2018-02-24T04:10:32.604445+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>028c9a1619f96dbfd29ca64199f4acde from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Observable id="alienvault-otx:Observable-a92c274b-8be4-96fb-05d9-5033552eeddd">
+                <cybox:Title>FileHash-MD5 - 028c9a1619f96dbfd29ca64199f4acde</cybox:Title>
+                <cybox:Object id="alienvault-otx:File-8d2bf3f3-e811-4f84-9445-5eb6c13b1264">
+                    <cybox:Properties xsi:type="FileObj:FileObjectType">
+                        <FileObj:Hashes>
+                            <cyboxCommon:Hash>
+                                <cyboxCommon:Type xsi:type="cyboxVocabs:HashNameVocab-1.0">MD5</cyboxCommon:Type>
+                                <cyboxCommon:Simple_Hash_Value>028c9a1619f96dbfd29ca64199f4acde</cyboxCommon:Simple_Hash_Value>
+                            </cyboxCommon:Hash>
+                        </FileObj:Hashes>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-4f7a50b4-36d4-f0aa-4e5c-401ee96dc286" timestamp="2018-02-24T04:10:32.604601+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>fed654cc7c3eea5d4c96ce48d7f1aaffb00e8a49 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Test_Mechanisms>
+                <indicator:Test_Mechanism xsi:type="yaraTM:YaraTestMechanismType">
+                    <yaraTM:Rule>rule BackoffROM    
+   {   
+   	meta:   
+   		author = "Alienvault Labs"   
+   		reference = "http://blog.fortinet.com/post/rom-a-new-version-of-the-backoff-pos-malware"   
+   	strings:   
+   		$mz = {4d 5a}   
+   		$mutex = "aMD6qt7lWb1N3TNBSe4N"   
+   		$httpparam1 = "data=%s"   
+   		$httpparam2 = "oprat=%d"   
+   		$httpparam3 = "uid=%s"   
+   		$httpparam4 = "uinfo=%s"   
+   		$httpparam5 = "win=%d"   
+   		$httpparam6 = "grup=%s"   
+   		$httpparam7 = "vers=%s"   
+   	condition:   
+   		($mz at 0) and ($mutex or all of ($httpparam*))   
+   }</yaraTM:Rule>
+                </indicator:Test_Mechanism>
+            </indicator:Test_Mechanisms>
+        </stix:Indicator>
+        <stix:Indicator id="alienvault-otx:indicator-6e69c9f9-d0bc-9f07-654d-7f7fdc344885" timestamp="2018-02-24T04:10:32.604739+00:00" xsi:type="indicator:IndicatorType">
+            <indicator:Title>bcb652cc6552b949631ed0fd2654b522c6635d45 from https://otx.alienvault.com/pulse/546ce8eb11d40838dc6e43f1</indicator:Title>
+            <indicator:Description/>
+            <indicator:Test_Mechanisms>
+                <indicator:Test_Mechanism xsi:type="yaraTM:YaraTestMechanismType">
+                    <yaraTM:Rule>rule BackoffROMHashes   
+   {   
+   	meta:   
+   		author = "Alienvault Labs"   
+   		reference_hash = "35fb5c75a5b472eb2c6fd059ca136a9e,01dd913425f36e56e42fec6f96282a3d"   
+   		reference = "http://blog.fortinet.com/post/rom-a-new-version-of-the-backoff-pos-malware"   
+   	strings:   
+   		$mz = {4d 5a}   
+   		$func1 = {56 57 8B F9 33 F6 8B D6 85 FF ?? ?? 33 C0 ?? ?? 0F B7 0F 8B C6 66 85 C9 ?? ?? 66 83 F9 2E 0F 44 D0 40 0F B7 0C 47 66 85 C9 ?? ?? 85 D2 ?? ?? 8B D0 53 8B DE 85 D2 ?? ?? 8A 04 5F 0C 20 0F BE C8 03 F1 C1 E1 07 33 F1 43 3B DA}   
+   		$func2 = {7E 7C 00 00 73 37 00 00 68 07 00 00 0A 31 00 00 C6 0C 00 00 2E 35 00 00 02 31 00 00 1A 34 00 00 88 03 00 00 1B 4F 00 00 2C 27 00 00 FB 0E 00 00 25 01 00 00 ED 0C 00 00 64 03 00 00 26 3F 00 00 16 36 00 00 1B 0B 00 00 34 34 00 00 84 08 00 00 07 0A 00 00 9A 0B 00 00 FD 72 00 00 7D 3D 00 00 F1 07 00 00 85 3F 00 00 99 2B 00 00 24 3C 00 00 55 6C 7B 6F 2F 29 00 00 6E 75 79 68 6E 4A 6D 6B 75 54 67 44 00 00 00 00 66 4F 68 4A 63 41 51 6B 36 4F 00 00}   
+   	condition:   
+   		($mz at 0) and (any of ($func*))   
+   }</yaraTM:Rule>
+                </indicator:Test_Mechanism>
+            </indicator:Test_Mechanisms>
+        </stix:Indicator>
+    </stix:Indicators>
+</stix:STIX_Package>

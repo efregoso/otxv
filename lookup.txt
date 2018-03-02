@@ -1,0 +1,109 @@
+{'asn': '32666',
+ 'asn_cidr': '129.22.16.0/20',
+ 'asn_country_code': 'US',
+ 'asn_date': '1988-03-03',
+ 'asn_description': 'CWRU-AS-1 - Case Western Reserve University, US',
+ 'asn_registry': 'arin',
+ 'entities': ['CWRU-Z', 'JAG3-ARIN'],
+ 'network': {'cidr': '129.22.0.0/16',
+             'country': None,
+             'end_address': '129.22.255.255',
+             'events': [{'action': 'last changed',
+                         'actor': None,
+                         'timestamp': '2012-04-02T09:31:36-04:00'},
+                        {'action': 'registration',
+                         'actor': None,
+                         'timestamp': '1988-03-03T00:00:00-05:00'}],
+             'handle': 'NET-129-22-0-0-1',
+             'ip_version': 'v4',
+             'links': ['https://rdap.arin.net/registry/ip/129.22.0.0',
+                       'https://whois.arin.net/rest/net/NET-129-22-0-0-1'],
+             'name': 'CWRUNET',
+             'notices': [{'description': 'By using the ARIN RDAP/Whois '
+                                         'service, you are agreeing to the '
+                                         'RDAP/Whois Terms of Use',
+                          'links': ['https://www.arin.net/whois_tou.html'],
+                          'title': 'Terms of Service'}],
+             'parent_handle': 'NET-129-0-0-0-0',
+             'raw': None,
+             'remarks': None,
+             'start_address': '129.22.0.0',
+             'status': None,
+             'type': None},
+ 'nir': None,
+ 'objects': {'CWRU-Z': {'contact': {'address': [{'type': None,
+                                                 'value': '10900 Euclid '
+                                                          'Avenue\n'
+                                                          'Cleveland\n'
+                                                          'OH\n'
+                                                          '44106\n'
+                                                          'United States'}],
+                                    'email': None,
+                                    'kind': 'org',
+                                    'name': 'Case Western Reserve University',
+                                    'phone': None,
+                                    'role': None,
+                                    'title': None},
+                        'entities': ['ABUSE6716-ARIN',
+                                     'NOC32756-ARIN',
+                                     'JAG3-ARIN',
+                                     'DNA49-ARIN'],
+                        'events': [{'action': 'last changed',
+                                    'actor': None,
+                                    'timestamp': '2017-12-08T13:44:41-05:00'},
+                                   {'action': 'registration',
+                                    'actor': None,
+                                    'timestamp': '2009-03-26T08:08:30-04:00'}],
+                        'events_actor': None,
+                        'handle': 'CWRU-Z',
+                        'links': ['https://rdap.arin.net/registry/entity/CWRU-Z',
+                                  'https://whois.arin.net/rest/org/CWRU-Z'],
+                        'notices': None,
+                        'raw': None,
+                        'remarks': [{'description': 'http://www.case.edu',
+                                     'links': None,
+                                     'title': 'Registration Comments'}],
+                        'roles': ['registrant'],
+                        'status': None},
+             'JAG3-ARIN': {'contact': {'address': [{'type': None,
+                                                    'value': 'Case Western '
+                                                             'Reserve '
+                                                             'University\r\n'
+                                                             'Crawford Hall, '
+                                                             'Room 505\r\n'
+                                                             'Attn: Jeffrey '
+                                                             'Gumpf\n'
+                                                             'Cleveland\n'
+                                                             'OH\n'
+                                                             '44106\n'
+                                                             'United States'}],
+                                       'email': [{'type': None,
+                                                  'value': 'jeffrey.gumpf@case.edu'}],
+                                       'kind': 'individual',
+                                       'name': 'Jeffrey A Gumpf',
+                                       'phone': [{'type': ['work', 'voice'],
+                                                  'value': '+1-216-368-5893'}],
+                                       'role': None,
+                                       'title': None},
+                           'entities': None,
+                           'events': [{'action': 'last changed',
+                                       'actor': None,
+                                       'timestamp': '2016-12-05T10:26:57-05:00'}],
+                           'events_actor': None,
+                           'handle': 'JAG3-ARIN',
+                           'links': ['https://rdap.arin.net/registry/entity/JAG3-ARIN',
+                                     'https://whois.arin.net/rest/poc/JAG3-ARIN'],
+                           'notices': None,
+                           'raw': None,
+                           'remarks': [{'description': 'ARIN has attempted to '
+                                                       'validate the data for '
+                                                       'this POC, but has '
+                                                       'received no response '
+                                                       'from the POC since '
+                                                       '2017-12-05',
+                                        'links': None,
+                                        'title': 'Unvalidated POC'}],
+                           'roles': ['technical'],
+                           'status': None}},
+ 'query': '129.22.21.193',
+ 'raw': None}

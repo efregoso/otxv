@@ -10,6 +10,13 @@ A log for changes made as OTX-V is developed.
     Have abandoned taxii2-client for OXTv2 library.  It looks like this delivers JSON objects
     in STIX 2.0, instead of trying to force Cabby to give me information.
 
+    Successfully am able to import pulse indicator information with OTXv2.  Working on getting
+    this information into Kibana & ElasticSearch.
+
+    Have successfully transported IP lookup data from who.is to the module.
+    IP Lookup tool is in the works.
+
+
 
 
 ------------------------------------------------------------------------------------------
