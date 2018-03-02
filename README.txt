@@ -17,8 +17,6 @@ A log for changes made as OTX-V is developed.
     IP Lookup tool is in the works.
 
 
-
-
 ------------------------------------------------------------------------------------------
 
 2/23/2018
