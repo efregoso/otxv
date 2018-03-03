@@ -15,6 +15,14 @@ A log for changes made as OTX-V is developed.
 
     Have successfully transported IP lookup data from who.is to the module.
     IP Lookup tool is in the works.
+    
+    Developed main.html and style.css files for the homepage (HTML/CSS).  In the process of
+    integrating php so the program can use the user's custom API key.
+
+	Summary: Started the IP Lookup Tool, finished general layout of homepage & login.php, 
+	got indicator info download working with OTXv2, set up ElasticSearch & Kibana, added
+	ElasticSearch package to core module
+	Next time: Set up IP Lookup Module, get indicator data funnelled into Elastic Search
 
 
 ------------------------------------------------------------------------------------------
