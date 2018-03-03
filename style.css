@@ -1,0 +1,19 @@
+﻿#central-text {
+	position:fixed;
+	margin:auto;
+	text-align:center;
+	border:10px solid powderblue;
+	width:100%;
+	border-radius:10px;
+	background-color:powderblue;
+}
+
+body {
+	background-color:grey;
+	font-family:Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+#sign-in-notif {
+	color:darkgrey;
+	font-size:20px;
+}

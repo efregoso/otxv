@@ -4,18 +4,19 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <title>Log in to OTX-V with your OTX credentials</title>
+    <link type="text/css" href="style.css" rel="stylesheet"/>
 </head>
 
 <body>
-    <form>
-        OTX Username:
-        <input type="text" id="username">
-        <br/>
-        OTX Password:
-        <input type="text" id="password">
-        <br/>
-        <input type="submit">
-    </form>
+<div id="central-text">
+	<h1>OTX-V</h1>
+	<span id="sign-in-notif">Sign in with your API Key.</span>
+	    <form action="/action_page.php">
+	        <span id="api-key">OTX API Key:</span>
+	        <input type="text" id="apikey">
+	        <input type="submit">
+	    </form>
+</div>
 </body>
 
 </html>
