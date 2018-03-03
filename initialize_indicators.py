@@ -1,9 +1,9 @@
 from OTXv2 import OTXv2
-import elasticsearch
+from OTXv2 import IndicatorTypes
+from elasticsearch import Elasticsearch
 from ipwhois import IPWhois
 import pprint
 import json
-from OTXv2 import IndicatorTypes
 from pandas.io.json import json_normalize
 from datetime import datetime, timedelta
 
@@ -12,6 +12,8 @@ from datetime import datetime, timedelta
 
 # API Key used for logging in -- BETA VERSION. still altering for custom credentials
 otx = OTXv2("de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb")
+#an instance of ElasticSearch for sending data to.  Must be initialized after ElasticSearch has already been started up
+es = Elasticsearch()
 # OTX password -- currently set to "password"
 OTX_PASSWORD = "password"
 # name of the cache file
@@ -23,14 +25,19 @@ def main():
     cachef = open(cache, "w")
     #get all subscribed pulses
     pulses = otx.getall()
+    #DEBUGGING: print the keys of the dictionary object in the list object in the indicators dictionary entry in each pulse object
+    print(str(pulses[1]["indicators"][1].keys()))
     #WIP: save all indicator data to cache document
-    for indicator in pulses:
-        cachef.write(indicator["name"] + "\n")
+    for pulse in pulses:
+        for indicator in pulse["indicators"]:
+            cachef.write("indicator: " + indicator["indicator"] + "\ndescription: " + str(indicator["description"]) + "\ncreated: " + str(indicator["created"]) + "\ntitle: " + str(indicator["title"]) + "\ncontent: " + str(indicator["content"]) + "\ntype: " + str(indicator["type"]) + "\nid: " + str(indicator["id"]) + "\n\n")
+    print(json_normalize(pulses[0:5]))
+    cachef.close()
     #signal that the program is done
     print("System done")
     exit()
 
-#Lookup DNS information about a given IP address using the ____ API.
+#Lookup DNS information about a given IP address using the whois API.
 def lookup_ip_info(ip):
     #create a whois instance for the given IP
     whois = IPWhois(ip)
