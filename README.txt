@@ -6,7 +6,14 @@ A log for changes made as OTX-V is developed.
 
 3/3/2018
 
+    Cache now finally works, holding information about indicator objects in all pulses.
+    The scheme by which this information is delivered is EXTREMELY roundabout & the time I
+    have spent on it shows it: the pulse objects delivered from the server are composed of a list
+    of pulse objects, which are dictionaries containing multiple keys, one being "indicators"
+    which is itself, a list of indicator objects, each a dictionary object.  Needless to say,
+    this took an incredible amount of trial & error.
 
+    But at last, I have found it!  Time to start pushing it into the elasticsearch engine.
 
 ------------------------------------------------------------------------------------------
 
