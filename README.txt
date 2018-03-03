@@ -3,6 +3,13 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
+
+3/3/2018
+
+
+
+------------------------------------------------------------------------------------------
+
 3/2/2018
 
     Started trying to use taxii2-client instead of Cabby to see if I get better results.
