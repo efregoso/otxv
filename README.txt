@@ -4,6 +4,33 @@ Author: Elizabeth Fregoso
 A log for changes made as OTX-V is developed.
 
 
+3/9/2018
+
+    Successfully created a demo pulse index in Elasticsearch/Kibana with demo pulses inside.
+    Am now moving a subsection of real-time pulse information into a non-demo index with the idea
+    of working up to the entire AlienVault library gradually, to both keep running time
+    down while I try out new features and to make the raw data more manageable.
+
+    JSON cache created!  Program hangs on a character error, posted here for personal reference:
+    Traceback (most recent call last):
+      File "initialize_indicators.py", line 57, in <module>
+        main()
+      File "initialize_indicators.py", line 32, in main
+        cachef.write(pprint.pformat(pulse))
+      File "C:\Users\Chrissy\AppData\Local\Programs\Python\Python36\lib\encodings\cp
+    1252.py", line 19, in encode
+        return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+    UnicodeEncodeError: 'charmap' codec can't encode characters in position 208-216:
+     character maps to <undefined>
+
+    I don't know what this means, but the process got significantly far before terminating in this,
+    so there are soem actual pulses loaded into the cache document.
+
+    Next steps: substitute the demo pulse index with an actual pulse index using the JSON cache
+    ("bulk" upload, if possible); move on to visualization
+
+------------------------------------------------------------------------------------------
+
 3/3/2018
 
     Cache now finally works, holding information about indicator objects in all pulses.

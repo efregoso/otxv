@@ -17,7 +17,7 @@ es = Elasticsearch()
 # OTX password -- currently set to "password"
 OTX_PASSWORD = "password"
 # name of the cache file
-cache = "testcache.txt"
+cache = "cache.txt"
 
 def main():
 
@@ -26,13 +26,17 @@ def main():
     #get all subscribed pulses
     pulses = otx.getall()
     #DEBUGGING: print the keys of the dictionary object in the list object in the indicators dictionary entry in each pulse object
-    print(str(pulses[1]["indicators"][1].keys()))
+    #print(str(pulses[1]["indicators"][1].keys()))
     #WIP: save all indicator data to cache document
     for pulse in pulses:
-        for indicator in pulse["indicators"]:
-            cachef.write("indicator: " + indicator["indicator"] + "\ndescription: " + str(indicator["description"]) + "\ncreated: " + str(indicator["created"]) + "\ntitle: " + str(indicator["title"]) + "\ncontent: " + str(indicator["content"]) + "\ntype: " + str(indicator["type"]) + "\nid: " + str(indicator["id"]) + "\n\n")
+        cachef.write(pprint.pformat(pulse))
+        #DEBUGGING: writing only indicator data to the testcache
+        #for indicator in pulse["indicators"]:
+        #    cachef.write("indicator: " + indicator["indicator"] + "\ndescription: " + str(indicator["description"]) + "\ncreated: " + str(indicator["created"]) + "\ntitle: " + str(indicator["title"]) + "\ncontent: " + str(indicator["content"]) + "\ntype: " + str(indicator["type"]) + "\nid: " + str(indicator["id"]) + "\n\n")
     print(json_normalize(pulses[0:5]))
     cachef.close()
+    # send the pulses to elasticsearch
+
     #signal that the program is done
     print("System done")
     exit()
