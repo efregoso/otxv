@@ -4,6 +4,40 @@ Author: Elizabeth Fregoso
 A log for changes made as OTX-V is developed.
 
 
+3/25/2018
+
+    What I want to do this time around: Give Kibana the ability to read from the cache;
+    dealing with the encoding error; creating list visualization of the index "pulses"
+    currently in the index.
+
+
+
+------------------------------------------------------------------------------------------
+
+3/24/2018
+
+    What I want to do this time around: fix the error below, import bulk data into
+    Kibana, begin working on list visualization
+
+    Looked into the error I got last time.  There is no other way to address it
+    than to print the characters that cannot be encoded in the .txt file to some other
+    format.  I know very little about encoding in Python, so for now I will just use
+    the data as it has been downloaded to the cache up until the error, about 3.7 Gbs
+    of STIX2 objects.
+
+    Despite receiving lots of socket timeout errors while indexing pulse objects, lots of
+    them have appeared in Kibana's pulse index.  Have created a screenshots folder with a
+    screenshot of what the second pulse looks like.  The problem with these incremental IDs
+    is that each time the pulse list updates, all pulse IDs will be downshifted.  Because I am
+    trying to limit my work to the pulses that do load, this will be a concern for later.
+    Now it is just a matter of finding out where in the pulse list the exceptions occur
+    (likely at the error listed above), and finding a way to get that data into Kibana & the cache.
+
+    Next steps: Give Kibana the ability to read from the cache; dealing with the encoding error;
+    creating list visualization of the index "pulses".
+
+------------------------------------------------------------------------------------------
+
 3/9/2018
 
     Successfully created a demo pulse index in Elasticsearch/Kibana with demo pulses inside.
@@ -24,7 +58,7 @@ A log for changes made as OTX-V is developed.
      character maps to <undefined>
 
     I don't know what this means, but the process got significantly far before terminating in this,
-    so there are soem actual pulses loaded into the cache document.
+    so there are some actual pulses loaded into the cache document.
 
     Next steps: substitute the demo pulse index with an actual pulse index using the JSON cache
     ("bulk" upload, if possible); move on to visualization

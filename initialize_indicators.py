@@ -25,15 +25,17 @@ def main():
     cachef = open(cache, "w")
     #get all subscribed pulses
     pulses = otx.getall()
-    #DEBUGGING: print the keys of the dictionary object in the list object in the indicators dictionary entry in each pulse object
-    #print(str(pulses[1]["indicators"][1].keys()))
-    #WIP: save all indicator data to cache document
+    #WIP: save all indicator data to cache document & send to Kibana with incremental IDs
+    #iterator variable for incremental IDs of cache data
+    i = 1
     for pulse in pulses:
         cachef.write(pprint.pformat(pulse))
-        #DEBUGGING: writing only indicator data to the testcache
-        #for indicator in pulse["indicators"]:
-        #    cachef.write("indicator: " + indicator["indicator"] + "\ndescription: " + str(indicator["description"]) + "\ncreated: " + str(indicator["created"]) + "\ntitle: " + str(indicator["title"]) + "\ncontent: " + str(indicator["content"]) + "\ntype: " + str(indicator["type"]) + "\nid: " + str(indicator["id"]) + "\n\n")
+        cachef.write("\n")
+        es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
+        i = i+1
+    #DEBUGGING: print five of the pulses to show that the caching is done
     print(json_normalize(pulses[0:5]))
+    #close the filestream for the cache
     cachef.close()
     # send the pulses to elasticsearch
 
@@ -46,11 +48,21 @@ def lookup_ip_info(ip):
     #create a whois instance for the given IP
     whois = IPWhois(ip)
     #lookup the information for this IP & place it in ipresults in a "pretty print" format
+    #DEBUGGING: maybe try not doing the pretty print to make it bypass the error?
     ipresults = pprint.pformat(whois.lookup_rdap());
     #open a file stream for a demo lookup cache
     lookupf = open("lookup.txt", "w")
     #write the results into the demo lookup cache
     lookupf.write(ipresults)
+
+#A debugging function for printing the keys in an indicator object in the pulse list
+def print_keys(pulses):
+    print(str(pulses[1]["indicators"][1].keys()))
+
+#A debugging function for printing all indicators in a pulse
+def cache_indicator_data(pulse):
+    for indicator in pulse["indicators"]:
+        cachef.write("indicator: " + indicator["indicator"] + "\ndescription: " + str(indicator["description"]) + "\ncreated: " + str(indicator["created"]) + "\ntitle: " + str(indicator["title"]) + "\ncontent: " + str(indicator["content"]) + "\ntype: " + str(indicator["type"]) + "\nid: " + str(indicator["id"]) + "\n\n")
 
 
 if __name__ == '__main__':
