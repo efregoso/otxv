@@ -10,7 +10,23 @@ A log for changes made as OTX-V is developed.
     dealing with the encoding error; creating list visualization of the index "pulses"
     currently in the index.
 
+    Working from within Kibana now.  The indicators themselves are the pulse hits,
+    so I need to amend the way I send data to Kibana inside the program to include only
+    the indicators.  The timeline function is being run from the indicators.created index,
+    a subindex within pulse objects.
 
+   I need to implement IP lookup sooner than expected because IDS hits do not naturally
+   contain any location information on the IP addresses they provide.  I will have to bundle
+   this information in with the indicator data somehow.  I am going to make a separate index,
+   called "hits", & play around with that instead.
+
+   Have written code for "hits" but no new index in Kibana, even though I have hit the same
+   set of exceptions that the pulse index hits, despite still adding pulses. Have added
+   screenshots of the return error that Kibana gives when trying to access the hit index.
+
+   Have created a pulse index filter in Kibana.  Added a screenshot to the  folder.
+   The index isn't isn't entirely functional yet but it will play a big role in
+   creating a list visualization.
 
 ------------------------------------------------------------------------------------------
 

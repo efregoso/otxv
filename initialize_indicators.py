@@ -26,12 +26,14 @@ def main():
     #get all subscribed pulses
     pulses = otx.getall()
     #WIP: save all indicator data to cache document & send to Kibana with incremental IDs
-    #iterator variable for incremental IDs of cache data
+    #DEBUGGING: index indicator hits in separate index, "hits"
     i = 1
     for pulse in pulses:
-        cachef.write(pprint.pformat(pulse))
-        cachef.write("\n")
+        #DEBUGGING: not creating cache for now
+        #cache_pulse(pulse)
         es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
+        for indicator in pulse["indicators"]:
+            es.index(index="hits", doc_type="hit", id=i, body=indicator)
         i = i+1
     #DEBUGGING: print five of the pulses to show that the caching is done
     print(json_normalize(pulses[0:5]))
@@ -64,6 +66,10 @@ def cache_indicator_data(pulse):
     for indicator in pulse["indicators"]:
         cachef.write("indicator: " + indicator["indicator"] + "\ndescription: " + str(indicator["description"]) + "\ncreated: " + str(indicator["created"]) + "\ntitle: " + str(indicator["title"]) + "\ncontent: " + str(indicator["content"]) + "\ntype: " + str(indicator["type"]) + "\nid: " + str(indicator["id"]) + "\n\n")
 
+#Function for putting a pulse in the cache
+def cache_pulse(pulse):
+    cachef.write(pprint.pformat(pulse))
+    cachef.write("\n")
 
 if __name__ == '__main__':
     main()
