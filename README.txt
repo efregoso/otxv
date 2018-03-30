@@ -3,6 +3,12 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
+3/30/2018
+
+    What I want to do this time around:
+
+------------------------------------------------------------------------------------------
+
 
 3/25/2018
 
