@@ -1,9 +1,7 @@
 from OTXv2 import OTXv2
-from OTXv2 import IndicatorTypes
 from elasticsearch import Elasticsearch
 from ipwhois import IPWhois
 import pprint
-import json
 from pandas.io.json import json_normalize
 from datetime import datetime, timedelta
 import ip_lookup
@@ -30,15 +28,15 @@ def main():
     # WIP: save all indicator data to cache document & send to Elasticsearch with incremental IDs
     # DEBUGGING: index indicator hits in separate index, "hits"
     i = 1
-    for pulse in pulses:
+    # DEBUGGING: just the first ten?
+    for pulse in pulses[0:10]:
         # DEBUGGING: not creating cache for now
         # cache_pulse(pulse)
         # cache_indicator_data(pulse)
-        i = 1
-        # DEBUGGING: just the first ten?
-        for indicator in pulse["indicators"][0:10]:
+        for indicator in pulse["indicators"]:
             if indicator["type"] == "IPv4" or indicator["type"] == "IPv6":
                 ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
+                # DEBUGGING: print the ipgeocode
                 print(ipgeocode)
                 indicator.update([ipgeocode])
         es.index(index="pulses2", doc_type="pulse", id=i, body=pulse)
