@@ -5,7 +5,24 @@ A log for changes made as OTX-V is developed.
 
 3/30/2018
 
-    What I want to do this time around:
+    What I want to do this time: Get hits index working, implement list visualization
+    Stretch goal: Integrate IP geographic lookup, Implement map visualization
+
+    Socket timeout error is fixed.  All pulses now uploaded to Kibana.  Have amended the
+    initialize_indicator.py file to only account for the first ten indexes to
+    make the dataset manageable.
+
+    List visualization for pulses finally complete!  Uploaded a screenshot to the screenshots folder.
+    Working on adding a field to the indicator objects containing the location of the IP address.
+
+    Added the location field to the indicator objects by updating the pulse dictionary
+    before indexing, so location support for indicators of type IPv4 & IPv6 is there.
+    Now working with the CAT API to index those locations & display them on a
+    geographic map.
+
+    Completed tasks: Implement list visualization, Get hits index working, Integrate IP geographic
+        lookup
+    Next time: Finish implementing map visualization, Start on Timeline view
 
 ------------------------------------------------------------------------------------------
 
@@ -21,18 +38,18 @@ A log for changes made as OTX-V is developed.
     the indicators.  The timeline function is being run from the indicators.created index,
     a subindex within pulse objects.
 
-   I need to implement IP lookup sooner than expected because IDS hits do not naturally
-   contain any location information on the IP addresses they provide.  I will have to bundle
-   this information in with the indicator data somehow.  I am going to make a separate index,
-   called "hits", & play around with that instead.
+    I need to implement IP lookup sooner than expected because IDS hits do not naturally
+    contain any location information on the IP addresses they provide.  I will have to bundle
+    this information in with the indicator data somehow.  I am going to make a separate index,
+    called "hits", & play around with that instead.
 
-   Have written code for "hits" but no new index in Kibana, even though I have hit the same
-   set of exceptions that the pulse index hits, despite still adding pulses. Have added
-   screenshots of the return error that Kibana gives when trying to access the hit index.
+    Have written code for "hits" but no new index in Kibana, even though I have hit the same
+    set of exceptions that the pulse index hits despite still adding pulses. Have added
+    screenshots of the return error that Kibana gives when trying to access the hit index.
 
-   Have created a pulse index filter in Kibana.  Added a screenshot to the  folder.
-   The index isn't isn't entirely functional yet but it will play a big role in
-   creating a list visualization.
+    Have created a pulse index filter in Kibana.  Added a screenshot to the  folder.
+    The index isn't isn't entirely functional yet but it will play a big role in
+    creating a list visualization.
 
 ------------------------------------------------------------------------------------------
 
@@ -145,4 +162,14 @@ A log for changes made as OTX-V is developed.
 2/20/2018
 
 	Added HTML & CSS to the software stack.  Started coding the login page.  Working
-	on integrating Cabby into the login page & taking the credentials.  
+	on integrating Cabby into the login page & taking the credentials.
+
+------------------------------------------------------------------------------------------
+
+ON FIRST INSTALL, DOWNLOAD:
+    Kibana
+    Elasticsearch
+    Python
+    JDK 8.0
+    From PIP: install pandas, OTXv2, elasticsearch
+
