@@ -12,25 +12,19 @@ def lookup_ip_info(ip):
     gmap = googlemaps.Client('AIzaSyAJYrRExLKqEW794dHT9QuO82aMt2VO3Yg')
     # lookup the information for this IP and place in a dictionary object
     iplookup = whois.lookup_rdap()
-    # DEBUGGING: pull the location result from the iplookup data
-    # print(iplookup["objects"]["ILTN"]["contact"]["address"][0]["value"])
-    location = iplookup["objects"]["ILTN"]["contact"]["address"][0]["value"]
-    print(location)
-    # DEBUGGING: geocode the address found by the iplookup object
-    geocode_result = gmap.geocode(location)
-    # return the location object
-    return geocode_result[0]["geometry"]["location"]
-    # DEBUGGING: return the geo_point location of the individual
-    # DEBUGGING: open a file stream for a demo lookup cache
-    # lookupf = open("lookup.txt", "w")
-    # DEBUGGING: write the results into the demo lookup cache
-    # lookupf.write(ipresults)
-
-    # DEBUGGING: experimenting with Geobaza -- DID NOT WORK. There is a bug in the source code!
-    # query = GeobazaQuery()
-    # iplookup = query.get(ip)
-    # print(iplookup.geography.center.latitude)
-    # print(iplookup.geography.center.longitude)
+    # need a list here to obtain the first code in the objects dictionary
+    keyview = iplookup["objects"].keys()
+    itr = list(keyview)
+    # continue only if there exists keys
+    if (len(itr) > 0):
+        code = itr[0]
+        location = iplookup["objects"][code]["contact"]["address"][0]["value"]
+        geocode_result = gmap.geocode(location)
+        # return the location object only if there is a result from Google Maps
+        # send back only if there is a result
+        if len(geocode_result) > 0:
+            return geocode_result[0]["geometry"]["location"]
 
 if __name__ == '__main__':
     lookup_ip_info('66.99.86.8')
+    lookup_ip_info('129.22.21.193')

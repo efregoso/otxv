@@ -3,6 +3,28 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
+4/6/2018
+
+    What I want to do this time: Finish implementing map visualization, Start on Timeline view
+    Stretch goal: Implement updating to last saved date
+
+    Updated all pulses with IPv4 & IPv6 address indicators to include location information
+    from Google Maps.
+
+    Timeline visualization complete.  Expanded pulse size to 200 to create better
+    timelines.  Screenshot of Kibana's native timelines uploaded.
+
+    Am learning about mappings in Elasticsearch in order to map the new location attribute
+    to a "geo_point" type so that the program recognizes it.
+
+    Completed: Timeline view
+    Next time: Update mapping of location field for pulse index for map visualization,
+        Start creating expanded data statistic features
+
+
+------------------------------------------------------------------------------------------
+
+
 3/30/2018
 
     What I want to do this time: Get hits index working, implement list visualization

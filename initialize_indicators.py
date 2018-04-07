@@ -29,20 +29,24 @@ def main():
     # DEBUGGING: index indicator hits in separate index, "hits"
     i = 1
     # DEBUGGING: just the first ten?
-    for pulse in pulses[0:10]:
+    for pulse in pulses[0:200]:
         # DEBUGGING: not creating cache for now
         # cache_pulse(pulse)
         # cache_indicator_data(pulse)
+        j = 1
         for indicator in pulse["indicators"]:
             if indicator["type"] == "IPv4" or indicator["type"] == "IPv6":
                 ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
                 # DEBUGGING: print the ipgeocode
-                print(ipgeocode)
-                indicator.update([ipgeocode])
-        es.index(index="pulses2", doc_type="pulse", id=i, body=pulse)
+                # convert the address to a coordinate location
+                indicator.update([("location", ipgeocode)])
+                # DEBUGGING: print the location and make sure that it is working
+                # print(indicator["location"])
+                # DEBUGGING - make a separate index for indicators to see if this affects mapping location
+                es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
+                j = j + 1
+        es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
         i = i + 1
-    # DEBUGGING: print five of the pulses to show that the caching is done
-    print(json_normalize(pulses[0:5]))
     # close the filestream for the caches
     cachep.close()
     cacheh.close()
