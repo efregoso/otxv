@@ -8,7 +8,7 @@ A log for changes made as OTX-V is developed.
     What I want to do this time: Finish implementing map visualization, Start on Timeline view
     Stretch goal: Implement updating to last saved date
 
-    Updated all pulses with IPv4 & IPv6 address indicators to include location information
+    Fully updated all pulses with IPv4 & IPv6 address indicators to include location information
     from Google Maps.
 
     Timeline visualization complete.  Expanded pulse size to 200 to create better
@@ -16,10 +16,35 @@ A log for changes made as OTX-V is developed.
 
     Am learning about mappings in Elasticsearch in order to map the new location attribute
     to a "geo_point" type so that the program recognizes it.
+    Keep receiving this error when updating the mapping:
+    C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\ipwhois\net.py:138: UserWarning: allow_permutations has been deprecated and will be removed. It is no longer needed, due to the depreca
+    tion of asn_alts, and the addition of the asn_methods argument.
+      warn('allow_permutations has been deprecated and will be removed. '
+    C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\ipwhois\asn.py:178: UserWarning: IPASN._parse_fields_dns() has been deprecated and will be removed. You should now use IPASN.parse_fiel
+    ds_dns().
+      warn('IPASN._parse_fields_dns() has been deprecated and will be '
+    PUT http://localhost:9200/pulses/pulse/9 [status:400 request:0.023s]
+    Traceback (most recent call last):
+      File "initialize_indicators.py", line 264, in <module>
+        main()
+      File "initialize_indicators.py", line 222, in main
+        es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
+      File "C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\elasticsearch\client\utils.py", line 76, in _wrapped
+        return func(*args, params=params, **kwargs)
+      File "C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\elasticsearch\client\__init__.py", line 319, in index
+        _make_path(index, doc_type, id), params=params, body=body)
+      File "C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\elasticsearch\transport.py", line 314, in perform_request
+        status, headers_response, data = connection.perform_request(method, url, params, body, headers=headers, ignore=ignore, timeout=timeout)
+      File "C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 180, in perform_request
+        self._raise_error(response.status, raw_data)
+      File "C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\site-packages\elasticsearch\connection\base.py", line 125, in _raise_error
+        raise HTTP_EXCEPTIONS.get(status_code, TransportError)(status_code, error_message, additional_info)
+    elasticsearch.exceptions.RequestError: TransportError(400, 'mapper_parsing_exception', 'field must be either [lat], [lon] or [geohash]')
 
-    Completed: Timeline view
-    Next time: Update mapping of location field for pulse index for map visualization,
-        Start creating expanded data statistic features
+    Completed: Timeline visualizations, Location data mapping, Map visualization on indicators
+        that have location data (IPv4 & IPv6)
+    Next time:  Start creating expanded data statistic features, Find how to catch the UserWarning
+        in ip_lookup.py, Finish map visualization on indicators that do not have location data
 
 
 ------------------------------------------------------------------------------------------

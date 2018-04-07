@@ -2,8 +2,6 @@ from OTXv2 import OTXv2
 from elasticsearch import Elasticsearch
 from ipwhois import IPWhois
 import pprint
-from pandas.io.json import json_normalize
-from datetime import datetime, timedelta
 import ip_lookup
 
 # method for retrieving OTX pulses & placing them into the cache file
@@ -15,8 +13,6 @@ otx = OTXv2("de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb")
 es = Elasticsearch()
 # OTX password -- currently set to "password"
 OTX_PASSWORD = "password"
-# name of the cache file
-cache = "cache.txt"
 
 
 def main():
@@ -28,12 +24,189 @@ def main():
     # WIP: save all indicator data to cache document & send to Elasticsearch with incremental IDs
     # DEBUGGING: index indicator hits in separate index, "hits"
     i = 1
+    # DEBUGGING: creating the index before adding things to it so that the mapping can be customized
+    es.indices.create(index="pulses", ignore=400)
+    mapping = {
+        "properties": {
+            "adversary": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "author_name": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "created": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "id": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "indicators": {
+                "properties": {
+                    "content": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "created": {
+                        "type": "date"
+                    },
+                    "description": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "id": {
+                        "type": "long"
+                    },
+                    "indicator": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "location": {
+                        "type": "geo_point",
+                        "fields": {
+                            "lat": {
+                                "type": "float"
+                            },
+                            "lng": {
+                                "type": "float"
+                            }
+                        }
+                    },
+                    "title": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "type": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    }
+                }
+            },
+            "industries": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "modified": {
+                "type": "date"
+            },
+            "more_indicators": {
+                "type": "boolean"
+            },
+            "name": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "public": {
+                "type": "long"
+            },
+            "references": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "revision": {
+                "type": "long"
+            },
+            "tags": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "targeted_countries": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "tlp": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            }
+        }
+    }
+    es.indices.put_mapping(index="pulses", doc_type="pulse", body=mapping)
     # DEBUGGING: just the first ten?
     for pulse in pulses[0:200]:
         # DEBUGGING: not creating cache for now
         # cache_pulse(pulse)
         # cache_indicator_data(pulse)
-        j = 1
         for indicator in pulse["indicators"]:
             if indicator["type"] == "IPv4" or indicator["type"] == "IPv6":
                 ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
@@ -43,8 +216,8 @@ def main():
                 # DEBUGGING: print the location and make sure that it is working
                 # print(indicator["location"])
                 # DEBUGGING - make a separate index for indicators to see if this affects mapping location
-                es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
-                j = j + 1
+            else:
+                indicator.update([("location", null)])
         es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
         i = i + 1
     # close the filestream for the caches
