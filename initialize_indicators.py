@@ -216,8 +216,10 @@ def main():
                 # DEBUGGING: print the location and make sure that it is working
                 # print(indicator["location"])
                 # DEBUGGING - make a separate index for indicators to see if this affects mapping location
+            # DEBUGGING: to deal with indicators that don't currently have location data, substitute coordinate (0, 0)
+            # ERROR: "failed to parse"
             else:
-                indicator.update([("location", null)])
+                indicator.update([("location", {"lat":0.0, "lon":0.0})])
         es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
         i = i + 1
     # close the filestream for the caches
