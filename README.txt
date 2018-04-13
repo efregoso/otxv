@@ -5,6 +5,22 @@ A log for changes made as OTX-V is developed.
 
 4/6/2018
 
+    What I want to do this time: Start creating expanded data statistic features, Find how to catch the UserWarning
+        in ip_lookup.py, Finish map visualization on indicators that do not have location data
+    Stretch goal: Implement updating to last saved date
+
+    Exported Kibana indeces to add to repo.  To speed up user's first install & prevent the program
+    from having to remake indexes every time it is run, they will be included with the executable file.
+
+    Completed: ElasticSearch/Kibana indeces export,
+    Next time:
+
+
+------------------------------------------------------------------------------------------
+
+
+4/6/2018
+
     What I want to do this time: Finish implementing map visualization, Start on Timeline view
     Stretch goal: Implement updating to last saved date
 
