@@ -3,6 +3,7 @@ from elasticsearch import Elasticsearch
 from ipwhois import IPWhois
 import pprint
 import ip_lookup
+import warnings
 
 # method for retrieving OTX pulses & placing them into the cache file
 # IN PROGRESS - currently developing
@@ -104,14 +105,6 @@ def main():
                     },
                     "location": {
                         "type": "geo_point",
-                        "fields": {
-                            "lat": {
-                                "type": "float"
-                            },
-                            "lng": {
-                                "type": "float"
-                            }
-                        }
                     },
                     "title": {
                         "type": "text",
@@ -202,24 +195,96 @@ def main():
         }
     }
     es.indices.put_mapping(index="pulses", doc_type="pulse", body=mapping)
-    # DEBUGGING: just the first ten?
-    for pulse in pulses[0:200]:
+    # Create an index mapping to use map visualization
+    es.indices.create(index="indicators", ignore=400)
+    mapping = {
+        "properties": {
+            "content": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "created": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "id": {
+                "type": "long"
+            },
+            "indicator": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "location": {
+                "type": "geo_point",
+            },
+            "title": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "type": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            }
+        }
+    }
+    es.indices.put_mapping(index="indicators", doc_type="indicator", body=mapping)
+    print("Mappings created.  Beginning pulse loading.")
+    # DEBUGGING: just the first thousand for now
+    for pulse in pulses[0:1000]:
         # DEBUGGING: not creating cache for now
         # cache_pulse(pulse)
         # cache_indicator_data(pulse)
+        j = 1
         for indicator in pulse["indicators"]:
             if indicator["type"] == "IPv4" or indicator["type"] == "IPv6":
-                ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
-                # DEBUGGING: print the ipgeocode
-                # convert the address to a coordinate location
-                indicator.update([("location", ipgeocode)])
-                # DEBUGGING: print the location and make sure that it is working
-                # print(indicator["location"])
-                # DEBUGGING - make a separate index for indicators to see if this affects mapping location
+                print("Updating indicator with location.")
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
+                    # DEBUG:
+                    print(ipgeocode)
+                    # the returned result has "lng" instead of "lon", so change that first
+                    lng = ipgeocode["lng"]
+                    ipgeocode.update([("lon", lng)])
+                    del ipgeocode["lng"]
+                    # DEBUG: print(pprint.pformat(ipgeocode))
+                    indicator.update([("location", ipgeocode)])
+                    # DEBUGGING: print(indicator["location"])
             # DEBUGGING: to deal with indicators that don't currently have location data, substitute coordinate (0, 0)
             # ERROR: "failed to parse"
             else:
-                indicator.update([("location", {"lat":0.0, "lon":0.0})])
+                # DEBUG: print("Updating indicator with no location.")
+                indicator.update([("location", {"lat": 0.0, "lon": 0.0})])
+            es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
+            j = j + 1
         es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
         i = i + 1
     # close the filestream for the caches
@@ -260,6 +325,14 @@ def cache_pulses(pulse):
     cachep.write("\n")
 
 
+# Function for adding a pulse to a user's favorites on OTX & in the app
+def add_favorite(pulse):
+    # add to a collection named "Favorites" or have the ability to customize collections
+    print("Function not yet implemented.")
+
+
 # Main method for starting up the program
 if __name__ == '__main__':
     main()
+
+

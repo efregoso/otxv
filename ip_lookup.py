@@ -1,12 +1,13 @@
 from ipwhois import IPWhois
-import pprint
 import googlemaps
+import warnings
 
 # Lookup DNS information about a given IP address using the API.
 
 
 def lookup_ip_info(ip):
-    try:
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
         # create a whois instance for the given IP
         whois = IPWhois(ip)
         # create a Google Maps API instance
@@ -17,16 +18,22 @@ def lookup_ip_info(ip):
         keyview = iplookup["objects"].keys()
         itr = list(keyview)
         # continue only if there exists keys
-        if (len(itr) > 0):
+        if len(itr) > 0:
             code = itr[0]
             location = iplookup["objects"][code]["contact"]["address"][0]["value"]
+            # DEBUG
+            print(location)
             geocode_result = gmap.geocode(location)
             # return the location object only if there is a result from Google Maps
             # send back only if there is a result
-            if len(geocode_result) > 0:
+            if len(geocode_result) > 0 and geocode_result[0]["geometry"]["location"] is not None:
+                # DEBUG: print(pprint.pformat(geocode_result[0]["geometry"]["location"]))
                 return geocode_result[0]["geometry"]["location"]
-    except UserWarning:
-        print("Warning caught.")
+            else:
+                # return the 0,0 coordinate from last time
+                noresult = {"lat": 0.0, "lng": 0.0}
+                print(noresult["lng"])
+                return noresult
 
 
 if __name__ == '__main__':

@@ -10,10 +10,44 @@ A log for changes made as OTX-V is developed.
     Stretch goal: Implement updating to last saved date
 
     Exported Kibana indeces to add to repo.  To speed up user's first install & prevent the program
-    from having to remake indexes every time it is run, they will be included with the executable file.
+    from having to remake indexes every time it is run, they will be included with the executable file.\
 
-    Completed: ElasticSearch/Kibana indeces export,
-    Next time:
+    Finished map visualization for objects with or with a location.  Indicators without a
+    location go now to (0,0).  I will have to fix this later, but for now this works fine for my purposes.
+    Have included a screenshot in the folder.
+
+    I receive an error on a pulse that has an IP indicator as shown here, meaning that ipgeocode does not
+    receive any location data back from Google Maps:
+        Updating indicator with location.
+        5750 W. 95th St., Suite 300
+        Overland Park
+        KS
+        66207
+        United States
+        {'lat': 38.9573517, 'lng': -94.65221939999999}
+        Updating indicator with location.
+        701 Lee Rd
+        Suite 300
+        Chesterbrook
+        PA
+        19087
+        United States
+        {'lat': 40.0687641, 'lng': -75.4577225}
+        Updating indicator with location.
+        None
+        Traceback (most recent call last):
+          File "initialize_indicators.py", line 336, in <module>
+            main()
+          File "initialize_indicators.py", line 275, in main
+            lng = ipgeocode["lng"]
+        TypeError: 'NoneType' object is not subscriptable
+
+    I am still looking into this.
+
+    Completed: Finished map visualization, ElasticSearch/Kibana indeces export, Updating location objects
+        with or without location, got rid of UserWarnings on ip_lookup.py
+    Next time: Address error in script above, Implement updating to last saved date, Implement "add pulse
+        to collection" feature, Finish user authentication
 
 
 ------------------------------------------------------------------------------------------
