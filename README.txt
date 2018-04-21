@@ -10,13 +10,22 @@ A log for changes made as OTX-V is developed.
         authentication
     Stretch goal: Initialize the Malware Timeline & Port checking tabs
 
-    Working on transferring the API key from the PHP program to the Python program with sockets.
-    It is not working very well so far -- the Python script hangs & doesn't seem to accept the
-    connection, and the PHP script does not lead to the proper web page after submit.  Still working on
-    this.
+    Working on transferring the API key from the PHP program to the Python program with sockets to finish
+    the login screen & customize login for users.  For now, Python's socket doesn't seem to accept the
+    connection from PHP's socket, and the PHP script does not lead to the proper web page after submit.
+    Still working on this.
 
-    Completed:
-    Next time:
+    In between my last commit & today, another program went in and changed my PATH variable to the
+    Jara JRE.  ElasticSearch was not functional for me, and I spent the last three hours troubleshooting.
+    Unlucky day.
+
+    I realized that the reason my PHP wasn't working was because I did not have PHP installed.  Very unlucky
+    day.  I am in the middle of that right now.  Committing to show my work so far.
+
+    Completed: Login screen HTML/CSS, Testing with PHP & Python for passing user API key between languages,
+        Kibana separate tabs plugin in another instance of ElasticSearch
+    Next time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs development,
+    Address error in script, Implement updating to last saved date
 
 
 ------------------------------------------------------------------------------------------

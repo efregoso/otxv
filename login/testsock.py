@@ -1,6 +1,6 @@
 import socket
 
-HOST = '172.20.6.85'
+HOST = '172.20.2.205'
 PORT = 10001
 
 print("Initializing socket.")
@@ -13,7 +13,7 @@ conn, addr = s.accept()
 print("Accepted connection")
 print("Receiving data.")
 data = conn.recv(1024)
-print("Received:")
+print("Received: ")
 print(data)
 conn.sendall("Thank you.")
 print("Closing socket.")
