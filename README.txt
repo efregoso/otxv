@@ -10,7 +10,10 @@ A log for changes made as OTX-V is developed.
         authentication
     Stretch goal: Initialize the Malware Timeline & Port checking tabs
 
-
+    Working on transferring the API key from the PHP program to the Python program with sockets.
+    It is not working very well so far -- the Python script hangs & doesn't seem to accept the
+    connection, and the PHP script does not lead to the proper web page after submit.  Still working on
+    this.
 
     Completed:
     Next time:
