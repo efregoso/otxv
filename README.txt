@@ -3,7 +3,22 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
-4/6/2018
+4/15/2018
+
+    What I want to do this time: Begin Kibana extra tabs development, Address error in script above,
+        Implement updating to last saved date, Implement "add pulse to collection" feature, Finish user
+        authentication
+    Stretch goal: Initialize the Malware Timeline & Port checking tabs
+
+
+
+    Completed:
+    Next time:
+
+
+------------------------------------------------------------------------------------------
+
+4/13/2018
 
     What I want to do this time: Start creating expanded data statistic features, Find how to catch the UserWarning
         in ip_lookup.py, Finish map visualization on indicators that do not have location data
