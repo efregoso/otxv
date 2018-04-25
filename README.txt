@@ -12,10 +12,14 @@ A log for changes made as OTX-V is developed.
     Sockets successfully integrated into the initialize_indicators.py file.  Am now working on the PHP redirect
     after successful login.  Starting on the custom Kibana tabs now.
 
+    PHP success/failure redirect now works. :)
 
+    Have changed the index to be named after the API key, depending on the user logging in.  This will allow
+    users to access their own data & customize login.
 
-    Completed: PHP/Python socket setup,
-    Next time:
+    Completed: PHP/Python socket setup, Customize login for different users
+    Next time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
 
 ------------------------------------------------------------------------------------------
 
@@ -30,10 +34,9 @@ A log for changes made as OTX-V is developed.
     Am going in now to Kibana source code to edit HTML/CSS files to account for the new tabs.  Will then add
     the Javascript files in the separate instance of ElasticSearch to repo for finalization.
 
-
-
-    Completed: PHP/Python socket setup,
-    Next time:
+    Completed: PHP/Python socket setup
+    Next time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
 
 ------------------------------------------------------------------------------------------
 

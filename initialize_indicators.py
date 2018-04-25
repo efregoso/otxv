@@ -14,8 +14,6 @@ import base64
 # otx = OTXv2("de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb")
 # an instance of ElasticSearch for sending data to.  Must be initialized after ElasticSearch has already been started up
 es = Elasticsearch()
-# OTX password -- currently set to "password"
-OTX_PASSWORD = "password"
 # cache file streams to pulses and hits
 cachep = open("cache_pulses.txt", "w")
 cacheh = open("cache_hits.txt", "w")
@@ -59,11 +57,17 @@ def main():
     print("Beginning pulse import.")
     pulses = otx.getall()
     print("Finished pulse import.")
-    # WIP: save all indicator data to cache document & send to Elasticsearch with incremental IDs
-    # DEBUGGING: index indicator hits in separate index, "hits"
+    # Save all indicator data to cache document & send to Elasticsearch with incremental IDs
+    # WIP: using the IDs bundled in from OTX instead of incremental IDs!  Will prevent rewriting every time the
+    # program is updated.
+    # Index indicator hits in separate index, "hits"
     i = 1
-    # DEBUGGING: creating the index before adding things to it so that the mapping can be customized
-    es.indices.create(index="pulses", ignore=400)
+    # Creating the index before adding things to it so that the mapping can be customized
+    # DEBUGGING: a way of detecting if this index already exists.  If so, allow more time for initialization
+    # (special screen)
+    # if not, only update from last updated pulse.
+    es.indices.create(index=apikey, ignore=400)
+    # DEBUGGING: debugging to include qualitative location as well as geopoint location
     mapping = {
         "properties": {
             "adversary": {
@@ -142,6 +146,15 @@ def main():
                     },
                     "location": {
                         "type": "geo_point",
+                    },
+                    "qual_location": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
                     },
                     "title": {
                         "type": "text",
@@ -231,7 +244,7 @@ def main():
             }
         }
     }
-    es.indices.put_mapping(index="pulses", doc_type="pulse", body=mapping)
+    es.indices.put_mapping(index=apikey, doc_type="pulse", body=mapping)
     # Create an index mapping to use map visualization
     es.indices.create(index="indicators", ignore=400)
     mapping = {
@@ -271,6 +284,15 @@ def main():
             },
             "location": {
                 "type": "geo_point",
+            },
+            "qual_location": {
+                "type" : "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
             },
             "title": {
                 "type": "text",
@@ -314,15 +336,17 @@ def main():
                     del ipgeocode["lng"]
                     # DEBUG: print(pprint.pformat(ipgeocode))
                     indicator.update([("location", ipgeocode)])
+                    # WIP: adding the qualitative location to the indicator data
+                    # This will need to be done from within the ip_lookup.py module.
+                    # indicator.update([("qual_location", )])
                     # DEBUGGING: print(indicator["location"])
             # DEBUGGING: to deal with indicators that don't currently have location data, substitute coordinate (0, 0)
-            # ERROR: "failed to parse"
             else:
                 # DEBUG: print("Updating indicator with no location.")
                 indicator.update([("location", {"lat": 0.0, "lon": 0.0})])
             es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
             j = j + 1
-        es.index(index="pulses", doc_type="pulse", id=i, body=pulse)
+        es.index(index=apikey, doc_type="pulse", id=i, body=pulse)
         i = i + 1
     # close the filestream for the caches
     cachep.close()
