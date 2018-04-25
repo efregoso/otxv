@@ -25,15 +25,16 @@
     ?>
 Sending <?php echo $key; ?> to server...
     <?php
-    global $buf;
+    global $buf, $boolean;
     socket_recv($socket, $buf, 200, MSG_WAITALL);
-    global $boolean;
     $boolean = base64_decode($buf);
     if ($boolean === true) {
-        /*redirect to kibana page*/;
+        echo "API key valid! Redirecting to Kibana...";
+        header("Location: http://localhost:5601/app/kibana");
     }
     else {
-        /*return to home screen*/;
+        echo "API key not valid. Redirecting to home page...";
+        header("Location: http://localhost:8000/login.html");
     }
     socket_close($socket);
     ?>

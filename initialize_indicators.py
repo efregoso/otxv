@@ -41,17 +41,22 @@ def main():
     apikey = base64.b64decode(data)
     print("Decoded to: ")
     print(apikey)
-    otx = OTXv2(apikey)
-
-    # try the API key delivered by the application
-    # if it does not work, reject it
-    # if it does work, begin the code below
-    bytes = str.encode("Thank you")
-    conn.sendall(bytes)
+    # try using the api key to open a connection
+    # if it works, resume code
+    # if not, send "False" back to the PHP server
+    try:
+        otx = OTXv2(apikey)
+    except:
+        bool = b'False'
+        conn.sendall(bool)
+        print("APIKey not valid")
+    bool = b'True'
+    conn.sendall(bool)
+    print("APIKey valid.")
     print("Closing socket.")
     conn.close()
-
     # get all subscribed pulses
+    print("Beginning pulse import.")
     pulses = otx.getall()
     # WIP: save all indicator data to cache document & send to Elasticsearch with incremental IDs
     # DEBUGGING: index indicator hits in separate index, "hits"

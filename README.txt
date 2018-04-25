@@ -3,7 +3,23 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
-4/20/2018
+4/25/2018
+
+    What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
+    Stretch goal: Initialize the Malware Timeline & Port checking tabs
+
+    Sockets successfully integrated into the initialize_indicators.py file.  Am now working on the PHP redirect
+    after successful login.  Starting on the custom Kibana tabs now.
+
+
+
+    Completed: PHP/Python socket setup,
+    Next time:
+
+------------------------------------------------------------------------------------------
+
+4/24/2018
 
     What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
         development, Address error in script, Implement updating to last saved date
