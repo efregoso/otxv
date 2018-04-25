@@ -1,7 +1,8 @@
 import socket
+import base64
 
-HOST = '172.20.2.205'
-PORT = 10001
+HOST = 'localhost'
+PORT = 10000
 
 print("Initializing socket.")
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,6 +16,10 @@ print("Receiving data.")
 data = conn.recv(1024)
 print("Received: ")
 print(data)
-conn.sendall("Thank you.")
+apikey = base64.b64decode(data)
+print("Decoded to: ")
+print(apikey)
+bytes = str.encode("Thank you")
+conn.sendall(bytes)
 print("Closing socket.")
 conn.close()

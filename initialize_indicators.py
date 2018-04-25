@@ -4,22 +4,53 @@ from ipwhois import IPWhois
 import pprint
 import ip_lookup
 import warnings
+import socket
+import base64
 
 # method for retrieving OTX pulses & placing them into the cache file
 # IN PROGRESS - currently developing
 
-# API Key used for logging in -- BETA VERSION. still altering for custom credentials
-otx = OTXv2("de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb")
+# DEBUGGING: API Key used for logging in -- BETA VERSION. still altering for custom credentials
+# otx = OTXv2("de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb")
 # an instance of ElasticSearch for sending data to.  Must be initialized after ElasticSearch has already been started up
 es = Elasticsearch()
 # OTX password -- currently set to "password"
 OTX_PASSWORD = "password"
+# cache file streams to pulses and hits
+cachep = open("cache_pulses.txt", "w")
+cacheh = open("cache_hits.txt", "w")
 
 
 def main():
-    # open file stream to cache document
-    cachep = open("cache_pulses.txt", "w")
-    cacheh = open("cache_hits.txt", "w")
+    # retrieve API key from login page
+    HOST = 'localhost'
+    PORT = 10000
+
+    print("Initializing socket.")
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print("Binding socket.")
+    s.bind((HOST, PORT))
+    print("Listening for connections.")
+    s.listen(10)
+    conn, addr = s.accept()
+    print("Accepted connection")
+    print("Receiving data.")
+    data = conn.recv(1024)
+    print("Received: ")
+    print(data)
+    apikey = base64.b64decode(data)
+    print("Decoded to: ")
+    print(apikey)
+    otx = OTXv2(apikey)
+
+    # try the API key delivered by the application
+    # if it does not work, reject it
+    # if it does work, begin the code below
+    bytes = str.encode("Thank you")
+    conn.sendall(bytes)
+    print("Closing socket.")
+    conn.close()
+
     # get all subscribed pulses
     pulses = otx.getall()
     # WIP: save all indicator data to cache document & send to Elasticsearch with incremental IDs

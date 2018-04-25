@@ -3,7 +3,25 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
-4/15/2018
+4/20/2018
+
+    What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
+    Stretch goal: Initialize the Malware Timeline & Port checking tabs
+
+    Sockets in PHP & Python are communicating with each other.  Working on the encoding procedure for the API key.
+
+    Am going in now to Kibana source code to edit HTML/CSS files to account for the new tabs.  Will then add
+    the Javascript files in the separate instance of ElasticSearch to repo for finalization.
+
+
+
+    Completed: PHP/Python socket setup,
+    Next time:
+
+------------------------------------------------------------------------------------------
+
+4/20/2018
 
     What I want to do this time: Begin Kibana extra tabs development, Address error in script above,
         Implement updating to last saved date, Implement "add pulse to collection" feature, Finish user
