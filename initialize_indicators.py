@@ -58,6 +58,7 @@ def main():
     # get all subscribed pulses
     print("Beginning pulse import.")
     pulses = otx.getall()
+    print("Finished pulse import.")
     # WIP: save all indicator data to cache document & send to Elasticsearch with incremental IDs
     # DEBUGGING: index indicator hits in separate index, "hits"
     i = 1
