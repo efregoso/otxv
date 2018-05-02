@@ -17,7 +17,7 @@ def lookup_ip_info(ip):
         # need a list here to obtain the first code in the objects dictionary
         keyview = iplookup["objects"].keys()
         itr = list(keyview)
-        # continue only if there exists keys
+        # continue only if there exist keys
         if len(itr) > 0:
             code = itr[0]
             location = iplookup["objects"][code]["contact"]["address"][0]["value"]
@@ -30,10 +30,7 @@ def lookup_ip_info(ip):
                 # DEBUG: print(pprint.pformat(geocode_result[0]["geometry"]["location"]))
                 return geocode_result[0]["geometry"]["location"]
             else:
-                # return the 0,0 coordinate from last time
-                noresult = {"lat": 0.0, "lng": 0.0}
-                print(noresult["lng"])
-                return noresult
+                return None
 
 
 if __name__ == '__main__':

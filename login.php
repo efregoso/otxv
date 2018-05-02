@@ -29,7 +29,8 @@ Sending <?php echo $key; ?> to server...
     socket_recv($socket, $buf, 200, MSG_WAITALL);
     $boolean = base64_decode($buf);
     socket_close($socket);
-    if ($boolean) {
+    echo $boolean;
+    if ($boolean === "True") {
         header("Location: http://localhost:5601/app/kibana");
         exit;
     }

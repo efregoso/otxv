@@ -3,6 +3,59 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
+4/28/2018
+
+    What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
+    Stretch goal: Initialize the Malware Timeline & Port checking tabs
+
+    Disaster has struck.  The development build of Kibana has updated, and so has Java.  Since then, I have
+    not had a functioning development version of Kibana for the past three days.  Instead, I will be coding
+    the remaining tabs independently of Kibana, but in the same languages for each integration, & hopefully
+    by Friday this issue will be resolved & I can get back to it.
+
+    I have finished with handling null locations in map visualization.  The default value is no longer 0,0.
+    I have a new error to deal with now for a Chinese address:
+        Traceback (most recent call last):
+          File "initialize_indicators.py", line 397, in <module>
+            main()
+          File "initialize_indicators.py", line 320, in main
+            cache_pulses(pulse)
+          File "initialize_indicators.py", line 385, in cache_pulses
+            cachep.write(str(pulse))
+          File "C:\Users\super\AppData\Local\Programs\Python\Python36-32\lib\encodings\cp1252.py", li
+        ncode
+            return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+        UnicodeEncodeError: 'charmap' codec can't encode characters in position 159-167: character ma
+        fined>
+
+    Also, my PHP script does not deal with invalid API keys like I expected.  For some reason, it completely
+    overlooks the 'except' block.  I have to continue to work on this.
+
+    Completed: Address error in script, Handle null locations in map visualization
+    Next time: Finish user authentication, Begin Kibana extra tabs
+        development, Implement updating to last saved date, Initialize the Malware Timeline
+        & Port checking tabs
+
+------------------------------------------------------------------------------------------
+
+
+4/28/2018
+
+    What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
+    Stretch goal: Initialize the Malware Timeline & Port checking tabs
+
+    Working on an .sh file for easy startup of OTX-V on my own computer.  Starts up ElasticSearch, Kibana, the PHP
+    server, and the login page with one click.  Don't yet know how to configure this for different computers, but
+    will look into it.
+
+    Completed: Began a "quick startup" shell file
+    Next time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
+        development, Address error in script, Implement updating to last saved date
+
+------------------------------------------------------------------------------------------
+
 4/25/2018
 
     What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs

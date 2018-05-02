@@ -6,6 +6,7 @@ import ip_lookup
 import warnings
 import socket
 import base64
+import urllib
 
 # method for retrieving OTX pulses & placing them into the cache file
 # IN PROGRESS - currently developing
@@ -44,8 +45,9 @@ def main():
     # if not, send "False" back to the PHP server
     try:
         otx = OTXv2(apikey)
-    except:
-        bool = b'False'
+    except OTXv2.InvalidAPIKey:
+        result = b'False'
+        bool = base64.b64encode(result)
         conn.sendall(bool)
         print("APIKey not valid")
     bool = b'True'
@@ -58,16 +60,13 @@ def main():
     pulses = otx.getall()
     print("Finished pulse import.")
     # Save all indicator data to cache document & send to Elasticsearch with incremental IDs
-    # WIP: using the IDs bundled in from OTX instead of incremental IDs!  Will prevent rewriting every time the
-    # program is updated.
-    # Index indicator hits in separate index, "hits"
     i = 1
     # Creating the index before adding things to it so that the mapping can be customized
-    # DEBUGGING: a way of detecting if this index already exists.  If so, allow more time for initialization
-    # (special screen)
+    # DEBUGGING: a way of detecting if this index already exists.  If so, allow more time for
+    # initialization (special screen)
     # if not, only update from last updated pulse.
     es.indices.create(index=apikey, ignore=400)
-    # DEBUGGING: debugging to include qualitative location as well as geopoint location
+    # New mapping to include qualitative location as well as geopoint location
     mapping = {
         "properties": {
             "adversary": {
@@ -75,7 +74,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 50
                     }
                 }
             },
@@ -84,7 +83,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 50
                     }
                 }
             },
@@ -96,7 +95,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             },
@@ -105,7 +104,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 50
                     }
                 }
             },
@@ -116,7 +115,7 @@ def main():
                         "fields": {
                             "keyword": {
                                 "type": "keyword",
-                                "ignore_above": 256
+                                "ignore_above": 1000
                             }
                         }
                     },
@@ -128,7 +127,7 @@ def main():
                         "fields": {
                             "keyword": {
                                 "type": "keyword",
-                                "ignore_above": 256
+                                "ignore_above": 1000
                             }
                         }
                     },
@@ -140,19 +139,19 @@ def main():
                         "fields": {
                             "keyword": {
                                 "type": "keyword",
-                                "ignore_above": 256
+                                "ignore_above": 50
                             }
                         }
                     },
                     "location": {
-                        "type": "geo_point",
+                        "type": "geo_point"
                     },
                     "qual_location": {
                         "type": "text",
                         "fields": {
                             "keyword": {
                                 "type": "keyword",
-                                "ignore_above": 256
+                                "ignore_above": 500
                             }
                         }
                     },
@@ -181,7 +180,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             },
@@ -196,7 +195,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             },
@@ -208,7 +207,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             },
@@ -220,7 +219,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             },
@@ -229,7 +228,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             },
@@ -238,7 +237,7 @@ def main():
                 "fields": {
                     "keyword": {
                         "type": "keyword",
-                        "ignore_above": 256
+                        "ignore_above": 1000
                     }
                 }
             }
@@ -283,7 +282,7 @@ def main():
                 }
             },
             "location": {
-                "type": "geo_point",
+                "type": "geo_point"
             },
             "qual_location": {
                 "type" : "text",
@@ -318,8 +317,8 @@ def main():
     print("Mappings created.  Beginning pulse loading.")
     # DEBUGGING: just the first thousand for now
     for pulse in pulses[0:1000]:
-        # DEBUGGING: not creating cache for now
-        # cache_pulse(pulse)
+        # cache the pulse & its indicator data
+        cache_pulses(pulse)
         # cache_indicator_data(pulse)
         j = 1
         for indicator in pulse["indicators"]:
@@ -330,20 +329,22 @@ def main():
                     ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
                     # DEBUG:
                     print(ipgeocode)
-                    # the returned result has "lng" instead of "lon", so change that first
-                    lng = ipgeocode["lng"]
-                    ipgeocode.update([("lon", lng)])
-                    del ipgeocode["lng"]
-                    # DEBUG: print(pprint.pformat(ipgeocode))
+                    if ipgeocode is not None:
+                        # the returned result has "lng" instead of "lon", so change that first
+                        lng = ipgeocode["lng"]
+                        ipgeocode.update([("lon", lng)])
+                        del ipgeocode["lng"]
+                        # DEBUG: print(pprint.pformat(ipgeocode))
                     indicator.update([("location", ipgeocode)])
                     # WIP: adding the qualitative location to the indicator data
                     # This will need to be done from within the ip_lookup.py module.
+                    # ip_lookup.lookup_qual_ip_info(indicator["indicator"])
                     # indicator.update([("qual_location", )])
                     # DEBUGGING: print(indicator["location"])
             # DEBUGGING: to deal with indicators that don't currently have location data, substitute coordinate (0, 0)
             else:
                 # DEBUG: print("Updating indicator with no location.")
-                indicator.update([("location", {"lat": 0.0, "lon": 0.0})])
+                indicator.update([("location", None)])
             es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
             j = j + 1
         es.index(index=apikey, doc_type="pulse", id=i, body=pulse)
@@ -382,7 +383,7 @@ def cache_indicator_data(pulse):
 
 # Function for putting a pulse in the cache
 def cache_pulses(pulse):
-    cachep.write(pprint.pformat(pulse))
+    cachep.write(str(pulse))
     cachep.write("\n")
 
 
