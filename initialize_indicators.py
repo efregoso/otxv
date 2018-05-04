@@ -6,7 +6,6 @@ import ip_lookup
 import warnings
 import socket
 import base64
-import urllib
 
 # method for retrieving OTX pulses & placing them into the cache file
 # IN PROGRESS - currently developing
@@ -18,47 +17,24 @@ es = Elasticsearch()
 # cache file streams to pulses and hits
 cachep = open("cache_pulses.txt", "w")
 cacheh = open("cache_hits.txt", "w")
+# HOST & PORT for the login socket
+HOST = 'localhost'
+PORT = 10000
 
 
 def main():
-    # retrieve API key from login page
-    HOST = 'localhost'
-    PORT = 10000
-
-    print("Initializing socket.")
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print("Binding socket.")
-    s.bind((HOST, PORT))
-    print("Listening for connections.")
-    s.listen(10)
-    conn, addr = s.accept()
-    print("Accepted connection")
-    print("Receiving data.")
-    data = conn.recv(1024)
-    print("Received: ")
-    print(data)
-    apikey = base64.b64decode(data)
-    print("Decoded to: ")
-    print(apikey)
-    # try using the api key to open a connection
-    # if it works, resume code
-    # if not, send "False" back to the PHP server
-    try:
-        otx = OTXv2(apikey)
-    except OTXv2.InvalidAPIKey:
-        result = b'False'
-        bool = base64.b64encode(result)
-        conn.sendall(bool)
-        print("APIKey not valid")
-    bool = b'True'
+    # a boolean for validating the API key
+    isValidated = False
+    # retrieve API key from login page & validate
+    while isValidated is False:
+        isValidated = validate_apikey()
+    # send result back to the PHP server
+    result = b'True'
+    bool = base64.b64encode(result)
     conn.sendall(bool)
     print("APIKey valid.")
     print("Closing socket.")
     conn.close()
-    # get all subscribed pulses
-    print("Beginning pulse import.")
-    pulses = otx.getall()
-    print("Finished pulse import.")
     # Save all indicator data to cache document & send to Elasticsearch with incremental IDs
     i = 1
     # Creating the index before adding things to it so that the mapping can be customized
@@ -391,6 +367,39 @@ def cache_pulses(pulse):
 def add_favorite(pulse):
     # add to a collection named "Favorites" or have the ability to customize collections
     print("Function not yet implemented.")
+
+
+# Function for initializing the login process with sockets to the login.php script
+def validate_apikey():
+    # retrieve API key from login page
+    print("Initializing socket.")
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print("Binding socket.")
+    s.bind((HOST, PORT))
+    print("Listening for connections.")
+    s.listen(10)
+    conn, addr = s.accept()
+    print("Accepted connection")
+    print("Receiving data.")
+    data = conn.recv(1024)
+    print("Received: ")
+    print(data)
+    global apikey
+    apikey = base64.b64decode(data)
+    print("Decoded to: ")
+    print(apikey)
+    try:
+        otx = OTXv2(apikey)
+        print("Attempting pulse import...")
+        pulses = otx.getall()
+    except:
+        print("APIKey not valid")
+        result = b'False'
+        bool = base64.b64encode(result)
+        conn.sendall(bool)
+        return False
+    print("Finished pulse import!")
+    return True
 
 
 # Main method for starting up the program

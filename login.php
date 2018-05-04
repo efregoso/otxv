@@ -23,7 +23,7 @@
     };
     socket_write($socket, $bytes, strlen($bytes));
     ?>
-Sending <?php echo $key; ?> to server...
+Sending key to server...
     <?php
     global $buf, $boolean;
     socket_recv($socket, $buf, 200, MSG_WAITALL);
@@ -35,7 +35,7 @@ Sending <?php echo $key; ?> to server...
         exit;
     }
     else {
-        header("Location: http://localhost:8000/login.html");
+        header("Location: http://localhost:8000/login_error.html");
         exit;
     }
     ?>

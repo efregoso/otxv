@@ -3,7 +3,27 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
-4/28/2018
+
+5/3/2018
+
+    What I want to do this time: Fix user authentication, Begin Kibana extra tabs
+        development, Finish Malware Timeline & Port checking tabs, Implement updating
+        to last saved date
+
+    Error handling for user authentication fixed.  There is a hanging issue while all pulses are
+    downloaded from OTX due to the OTXv2 Python package having no way to validate
+    an apikey without beginning the process.  Will have to be clever here.  My thought is to set
+    some kind of timeout so that if the pulse process is taking longer than a certain amount of time,
+    the program assumes that the key was valid.
+
+
+
+    Completed: Fix user authentication
+    Next time:
+
+------------------------------------------------------------------------------------------
+
+5/1/2018
 
     What I want to do this time: Finish user authentication, Finish Kibana plugins, Begin Kibana extra tabs
         development, Address error in script, Implement updating to last saved date
