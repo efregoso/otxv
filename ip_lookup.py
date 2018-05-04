@@ -1,10 +1,15 @@
 from ipwhois import IPWhois
 import googlemaps
 import warnings
+import pprint
 
-# Lookup DNS information about a given IP address using the API.
+'''
+Lookup DNS information about a given IP address using the API.
 
-
+:param ip: An IP address to be looked up for location information
+:returns: On successful lookup, will return a dictionary object containing location coordinates. 
+On unsuccessful lookup, will return None.
+'''
 def lookup_ip_info(ip):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -31,6 +36,27 @@ def lookup_ip_info(ip):
                 return geocode_result[0]["geometry"]["location"]
             else:
                 return None
+        else:
+            return None
+
+
+'''
+Lookup DNS information about a given IP address using the whois API & cache to file.
+
+:param ip: An IP address to be looked up for location information
+:returns: A boolean on if the location data for the IP was successfully cached
+'''
+def lookup_ip_info(ip):
+    # create a whois instance for the given IP
+    whois = IPWhois(ip)
+    # lookup the information for this IP & place it in ipresults in a "pretty print" format
+    # DEBUGGING: maybe try not doing the pretty print to make it bypass the error?
+    ipresults = pprint.pformat(whois.lookup_rdap());
+    # open a file stream for a demo lookup cache
+    lookupf = open("lookup.txt", "w")
+    # write the results into the demo lookup cache
+    lookupf.write(ipresults)
+    return True
 
 
 if __name__ == '__main__':

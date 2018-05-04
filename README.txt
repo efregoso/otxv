@@ -4,6 +4,25 @@ Author: Elizabeth Fregoso
 A log for changes made as OTX-V is developed.
 
 
+5/4/2018
+
+    What I want to do this time: Begin Kibana extra tabs development, Finish Malware Timeline & Port checking
+    tabs, Implement updating to last saved date, Update the CSS for the login page
+    Possible stylometry section?, Vocabulary highlighting feature, Generating documentation with pydoc,
+    Create a demo index for demo day to reduce pulse load time
+
+    Made the login CSS a little bit nicer-looking.
+
+    I am going to create a demo index for demo day so that pulses loading doesn't take so long.
+
+    Am working on separating login methods for new users versus old ones to speed up the pulse loading.
+
+
+    Completed: Update the CSS for the login page
+    Next time:
+
+------------------------------------------------------------------------------------------
+
 5/3/2018
 
     What I want to do this time: Fix user authentication, Begin Kibana extra tabs
@@ -16,10 +35,13 @@ A log for changes made as OTX-V is developed.
     some kind of timeout so that if the pulse process is taking longer than a certain amount of time,
     the program assumes that the key was valid.
 
-
+    Created login error screen as well.
 
     Completed: Fix user authentication
-    Next time:
+    Next time: Begin Kibana extra tabs development, Finish Malware Timeline & Port checking
+        tabs, Implement updating to last saved date, Update the CSS for the login page,
+        Possible stylometry section?, Vocabulary highlighting feature, Generating documentation
+        with pydoc
 
 ------------------------------------------------------------------------------------------
 
