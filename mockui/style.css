@@ -1,0 +1,35 @@
+﻿#top-nav {
+	position:fixed;
+	width:100%;
+	height:10%;
+	top:0px;
+	left:0px;
+	background-color:black;
+}
+
+#top-nav a {
+	text-decoration:none !important;
+	float:right;
+	display:block;
+	padding:10px;
+	margin:5px;
+	text-align:center;
+	color:white;
+	font-weight:bold;
+}
+
+#top-nav a:hover{
+	background-color:darkgrey;
+}
+
+#top-nav a:active {
+	text-color:pink;
+}
+
+#main-body {
+	margin-top:100px;
+}
+
+#welcome {
+	font-size:100px;
+}

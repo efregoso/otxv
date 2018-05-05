@@ -46,7 +46,7 @@ Lookup DNS information about a given IP address using the whois API & cache to f
 :param ip: An IP address to be looked up for location information
 :returns: A boolean on if the location data for the IP was successfully cached
 '''
-def lookup_ip_info(ip):
+def cache_ip_info(ip):
     # create a whois instance for the given IP
     whois = IPWhois(ip)
     # lookup the information for this IP & place it in ipresults in a "pretty print" format

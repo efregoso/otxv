@@ -37,6 +37,8 @@ def main():
     # DEBUGGING: Save all indicator data to cache document & send to Elasticsearch with incremental IDs
     global i
     i = 1
+    # get all pulses
+    pulses = otx.getall()
     # Creating the index before adding things to it so that the mapping can be customized
     # DEBUGGING: If index already exists, only update pulses not updated
     if es.exists(apikey):
@@ -44,7 +46,6 @@ def main():
         # by that name exists in the index already.  if not, copy. if there is, update from last modified date from the
         # index.
         # only retrieve pulses from a certain date
-        pulses = otx.getall()
         for pulse in pulses[0:1000]:
             # cache the pulse & its indicator data
             # cache_pulses(pulse)
