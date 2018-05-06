@@ -1,11 +1,11 @@
 from OTXv2 import OTXv2
-from OTXv2 import IndicatorTypes
 from elasticsearch import Elasticsearch
 import ip_lookup
 import warnings
 import socket
 import base64
 import datetime
+import create_demo_cache
 
 # DEBUGGING: my API key is "de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb"
 # an instance of ElasticSearch for sending/organizing data
@@ -23,71 +23,41 @@ all pulse objects into the cache.
 '''
 def main():
     # a boolean for validating the API key
-    isValidated = False
+    is_validated = False
     # retrieve API key from login page & validate
-    while isValidated is False:
-        isValidated = validate_apikey()
+    while is_validated is False:
+        is_validated = validate_apikey()
     # send result back to the PHP server
     result = b'True'
     bool = base64.b64encode(result)
     conn.sendall(bool)
-    print("APIKey valid.")
     print("Closing socket.")
     conn.close()
+    print("Configuring indeces...")
     # DEBUGGING: Save all indicator data to cache document & send to Elasticsearch with incremental IDs
-    global i
-    i = 1
-    # get all pulses
-    pulses = otx.getall()
     # Creating the index before adding things to it so that the mapping can be customized
-    # DEBUGGING: If index already exists, only update pulses not updated
-    if es.exists(apikey):
-        # start updating by last modified date. go through each pulse & check when it was last modified & if a pulse
-        # by that name exists in the index already.  if not, copy. if there is, update from last modified date from the
-        # index.
-        # only retrieve pulses from a certain date
-        for pulse in pulses[0:1000]:
-            # cache the pulse & its indicator data
+    if es.indices.exists(index=apikey):
+        # go through each pulse & check when it was last modified & if a pulse by that name exists in the index already.
+        # if not, copy. if there is, update from last modified date from the index
+        for pulse in pulses[0:20]:
             # cache_pulses(pulse)
             # cache_indicator_data(pulse)
-            j = 1
-            for indicator in pulse["indicators"]:
-                if indicator["type"] == "IPv4" or indicator["type"] == "IPv6":
-                    print("Updating indicator with location.")
-                    with warnings.catch_warnings():
-                        warnings.simplefilter("ignore")
-                        ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
-                        # DEBUGL print the ip's geocode
-                        print(ipgeocode)
-                        if ipgeocode is not None:
-                            # the returned result has "lng" instead of "lon", so change that first
-                            lng = ipgeocode["lng"]
-                            ipgeocode.update([("lon", lng)])
-                            del ipgeocode["lng"]
-                        indicator.update([("location", ipgeocode)])
-                        # WIP: adding the qualitative location to the indicator data
-                        # This will need to be done from within the ip_lookup.py module.
-                        # ip_lookup.lookup_qual_ip_info(indicator["indicator"])
-                        # indicator.update([("qual_location", )])
-                        # DEBUGGING: print(indicator["location"])
-                else:
-                    indicator.update([("location", None)])
-                es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
-                j = j + 1
-            # update the pulse information with the current date & time that this pulse was updated
-            pulse.update([("changed_by_es", datetime.utcnow())])
-            # convert the pulse's natural hexadecimal ID to an integer ID
-            es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
-            i = i + 1
+            try:
+                pulse_match = es.get(index=apikey, q="_id:" + str(int(pulse["id"], 16)))
+                if pulse["modified"] > pulse_match["modified"]:
+                    es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
+                    print("Updated pulse with ID: " + str(int(pulse["id"], 16)))
+            except:
+                add_loc_to_indicators(pulse)
+                es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
+                print("Added new pulse with ID: " + str(int(pulse["id"], 16)))
     # If index does not already exist, create the index and begin loading mapping & pulse information
     else:
+        print("Creating new index: " + apikey)
         es.indices.create(index=apikey, ignore=400)
         # New mapping to include qualitative location as well as geopoint location
         mapping = {
             "properties": {
-                "changed_in_es": {
-                    "type": "date"
-                },
                 "adversary": {
                     "type": "text",
                     "fields": {
@@ -264,7 +234,7 @@ def main():
         }
         es.indices.put_mapping(index="indicators"+apikey, doc_type="pulse", body=mapping)
         # Create an indicator mapping to get more useful list visualization
-        es.indices.create(index="indicators", ignore=400)
+        es.indices.create(index="indicators"+apikey, ignore=400)
         mapping = {
             "properties": {
                 "content": {
@@ -332,46 +302,20 @@ def main():
                 }
             }
         }
-        es.indices.put_mapping(index="indicators", doc_type="indicator", body=mapping)
+        es.indices.put_mapping(index="indicators" + apikey, doc_type="indicator", body=mapping)
         print("Mappings created.  Beginning pulse loading.")
         # DEBUGGING: just the first thousand for now
         for pulse in pulses[0:1000]:
             # cache the pulse & its indicator data
-            cache_pulses(pulse)
+            # cache_pulses(pulse)
             # cache_indicator_data(pulse)
-            j = 1
-            for indicator in pulse["indicators"]:
-                if indicator["type"] == "IPv4" or indicator["type"] == "IPv6":
-                    print("Updating indicator with location.")
-                    with warnings.catch_warnings():
-                        warnings.simplefilter("ignore")
-                        ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
-                        # DEBUG:
-                        print(ipgeocode)
-                        if ipgeocode is not None:
-                            # the returned result has "lng" instead of "lon", so change that first
-                            lng = ipgeocode["lng"]
-                            ipgeocode.update([("lon", lng)])
-                            del ipgeocode["lng"]
-                            # DEBUG: print(pprint.pformat(ipgeocode))
-                        indicator.update([("location", ipgeocode)])
-                        # WIP: adding the qualitative location to the indicator data
-                        # This will need to be done from within the ip_lookup.py module.
-                        # ip_lookup.lookup_qual_ip_info(indicator["indicator"])
-                        # indicator.update([("qual_location", )])
-                        # DEBUGGING: print(indicator["location"])
-                # DEBUGGING: to deal with indicators that don't currently have location data, substitute coordinate (0, 0)
-                else:
-                    # DEBUG: print("Updating indicator with no location.")
-                    indicator.update([("location", None)])
-                es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
-                j = j + 1
+            add_loc_to_indicators(pulse)
             # convert the pulse's natural hexadecimal ID to an integer ID
             es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
-            i = i + 1
+            print("Added pulse with ID: " + str(int(pulse["id"], 16)))
     # close the filestream for the caches
-    cachep.close()
-    cacheh.close()
+    # cachep.close()
+    # cacheh.close()
     # signal that the program is done
     print("System done")
     exit()
@@ -433,7 +377,7 @@ def validate_apikey():
     print("Binding socket.")
     s.bind((HOST, PORT))
     print("Listening for connections.")
-    s.listen(10)
+    s.listen()
     global conn
     conn, addr = s.accept()
     print("Accepted connection")
@@ -446,17 +390,41 @@ def validate_apikey():
     print("Decoded to: ")
     print(apikey)
     try:
+        global otx
         otx = OTXv2(apikey)
-        print("Attempting pulse query test...")
+        print("Retrieving pulses from server...")
         global pulses
-        pulses = otx.get_indicator_details_full(IndicatorTypes.DOMAIN, "google.com")
+        pulses = otx.getall()
     except:
         print("APIKey not valid")
         result = b'False'
         bool = base64.b64encode(result)
         conn.sendall(bool)
         return False
-    print("Finished pulse import!")
+    print("API key valid!")
+    return True
+
+
+def add_loc_to_indicators(pulse):
+    j = 1
+    for indicator in pulse["indicators"]:
+        if indicator['type'] == 'IPv4' or indicator['type'] == 'IPv6':
+            print("Updating indicator with location.")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                ipgeocode = ip_lookup.lookup_ip_info(indicator["indicator"])
+                print(ipgeocode)
+                if ipgeocode is not None:
+                    # the returned result has "lng" instead of "lon", so change that first
+                    lng = ipgeocode["lng"]
+                    ipgeocode.update([("lon", lng)])
+                    del ipgeocode["lng"]
+                indicator.update([("location", ipgeocode)])
+                # WIP: adding the qualitative location to the indicator data
+        else:
+            indicator.update([("location", None)])
+        es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
+        j = j + 1
     return True
 
 
@@ -465,5 +433,3 @@ Main method for starting up the program
 '''
 if __name__ == '__main__':
     main()
-
-

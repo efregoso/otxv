@@ -3,6 +3,25 @@ Author: Elizabeth Fregoso
 
 A log for changes made as OTX-V is developed.
 
+5/5/2018
+
+    What I want to do this time: Finish Malware Timeline & Port checking tabs, Implement updating to last saved date
+    Possible stylometry section?, Vocabulary highlighting feature, Generating documentation with pydoc,
+    Create a demo index for demo day to reduce pulse load time
+
+    Started on the UI & have a general mockup.  It's not super pretty, but it's workable.  Now I just need to add
+    functionality to it & make it work with the core Python program.
+
+    Almsot done implementing updating to the last saved date/only updating pulses that have information changed.
+
+    Have created a demo index for demo day.
+
+    Completed: Begin Kibana extra tabs development, Create a demo index for demo day to reduce pulse load time,
+        Started developing updating to last saved date
+    Next time: Finish Malware Timeline & Port checking tabs, Finish updating to last saved date
+        Possible stylometry section?, Vocabulary highlighting feature, Generating documentation with pydoc,
+
+------------------------------------------------------------------------------------------
 
 5/4/2018
 
@@ -16,7 +35,6 @@ A log for changes made as OTX-V is developed.
     I am going to create a demo index for demo day so that pulses loading doesn't take so long.
 
     Am working on separating login methods for new users versus old ones to speed up the pulse loading.
-
 
     Completed: Update the CSS for the login page
     Next time:

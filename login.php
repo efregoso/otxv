@@ -26,16 +26,18 @@
 Sending key to server...
     <?php
     global $buf, $boolean;
-    socket_recv($socket, $buf, 200, MSG_WAITALL);
+    socket_recv($socket, $buf, 1, MSG_WAITALL);
     $boolean = base64_decode($buf);
+    ?>
+Echoing <?php echo $boolean ?>...
+    <?php
     socket_close($socket);
-    echo $boolean;
-    if ($boolean === "True") {
+    if ($boolean == "True") {
         header("Location: http://localhost:5601/app/kibana");
         exit;
     }
     else {
-        header("Location: http://localhost:8000/login_error.html");
+        header("Location: http://localhost:8000/loginerror.html");
         exit;
     }
     ?>
