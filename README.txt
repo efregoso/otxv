@@ -8,11 +8,13 @@ A log for changes made as OTX-V is developed.
 
     What I want to do this time: Finish Malware Timeline & Port checking tabs, Finish updating to last saved date
         Possible stylometry section?, Vocabulary highlighting feature, Generating documentation with pydoc,
-        Finish authentication (again)
+        Finish authentication (again), Finish qualitative location data adding
 
+    Finished updating to last modified date.  Initialization should be much quicker now.
 
+    Working on the STYLO tab.
 
-    Completed:
+    Completed: Finish updating to last saved date, Finish authentication (again)
     Next time:
 
 ------------------------------------------------------------------------------------------

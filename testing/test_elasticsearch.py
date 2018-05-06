@@ -1,18 +1,18 @@
 from elasticsearch import Elasticsearch
 from datetime import datetime
+import pprint
 
 # start up elasticsearch on host 9200
 es = Elasticsearch()
+# my APIkey
+apikey = "de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb"
 
 
 def main():
     create_sample_index()
     create_sample_doc()
-    result = test_search()
-    print(result)
-    test_update_by_query()
-    result = test_search()
-    print(result)
+    result = es.get_source(index=apikey, doc_type="pulse", id=28125252463092022477321366342)
+    print(result["modified"])
     # signal having finished the process, and then exit
     print("Program done")
     exit()
@@ -58,6 +58,12 @@ def create_sample_doc():
 def create_sample_index():
     es.indices.create(index="test", ignore=400)
     print("Created index 'test'")
+
+
+def test_get_source():
+    result = es.get_source(index="test", doc_type="doc", id=16)
+    print(pprint.pformat(result))
+    return result
 
 
 if __name__ == "__main__":

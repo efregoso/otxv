@@ -18,17 +18,22 @@
 
 <div id="main-body">
 <p>Enter a control text block:</p>
-<form>
-<input type="text" name="ctrl-text">
-<input type="submit" value="submit">
+<form id="control-text-form">
 </form>
+<textarea rows="10" form="control-text-form" name="ctrl-text"></textarea>
 <p>Enter comparison text blocks:</p>
-<form>
-<input type="text" name="comp-text1">
-<input type="text" name="comp-text2">
-<input type="text" name="comp-text3">
-<input type="submit" value="submit">
+<textarea rows="10" form="compare-text-form" name="comp-text1"></textarea>
+<textarea rows="10" form="compare-text-form" name="comp-text2"></textarea>
+<textarea rows="10" form="compare-text-form" name="comp-text3"></textarea>
+
+<p>Type of analysis to perform?</p>
+<form id="comparer-text-form">
+<input type="radio" value="Keyword" name="keyword">Keyword<br/>
+<input type="radio" value="Unigram" name="unigram">Unigram<br/>
+<input type="radio" value="Bigram" name="bigram">Bigram<br/>
+<input type="submit" value="Submit" name="submit-key" onclick="stylo.js">
 </form>
+
 </div>
 
 </body>

@@ -4,6 +4,9 @@ import ip_lookup
 import warnings
 import socket
 import base64
+import ip_service
+import port_checker
+import pprint
 import datetime
 import create_demo_cache
 
@@ -33,24 +36,35 @@ def main():
     conn.sendall(bool)
     print("Closing socket.")
     conn.close()
+    # Start IP service
+    # DEBUG: HANGS UNTIL IT GETS A PING
+    print("Starting IP Service...")
+    ip_service.main()
+    # Start port-checking service
+    # DEBUG: HANGS UNTIL IT GETS A PING
+    print("Starting port checking service...")
+    port_checker.main()
     print("Configuring indeces...")
     # DEBUGGING: Save all indicator data to cache document & send to Elasticsearch with incremental IDs
     # Creating the index before adding things to it so that the mapping can be customized
     if es.indices.exists(index=apikey):
         # go through each pulse & check when it was last modified & if a pulse by that name exists in the index already.
         # if not, copy. if there is, update from last modified date from the index
-        for pulse in pulses[0:20]:
+        for pulse in pulses[0:200]:
             # cache_pulses(pulse)
             # cache_indicator_data(pulse)
-            try:
-                pulse_match = es.get(index=apikey, q="_id:" + str(int(pulse["id"], 16)))
-                if pulse["modified"] > pulse_match["modified"]:
+            print(str(es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))))
+            if es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16)):
+                pulse_match = es.get_source(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))
+                if pulse["modified"] != pulse_match["modified"]:
                     es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
                     print("Updated pulse with ID: " + str(int(pulse["id"], 16)))
-            except:
+            else:
+                print("Adding location data to indicators for pulse ID: " + str(int(pulse["id"], 16)))
                 add_loc_to_indicators(pulse)
                 es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
                 print("Added new pulse with ID: " + str(int(pulse["id"], 16)))
+            print("Ops done for pulse with ID: " + str(int(pulse["id"], 16)))
     # If index does not already exist, create the index and begin loading mapping & pulse information
     else:
         print("Creating new index: " + apikey)
@@ -305,7 +319,7 @@ def main():
         es.indices.put_mapping(index="indicators" + apikey, doc_type="indicator", body=mapping)
         print("Mappings created.  Beginning pulse loading.")
         # DEBUGGING: just the first thousand for now
-        for pulse in pulses[0:1000]:
+        for pulse in pulses[0:200]:
             # cache the pulse & its indicator data
             # cache_pulses(pulse)
             # cache_indicator_data(pulse)
@@ -404,9 +418,14 @@ def validate_apikey():
     print("API key valid!")
     return True
 
+'''
+A function for adding geopoint data to indicators with IPv4 & IPv6 type indicators.
 
+:param pulse: The pulse to have indicator location data added to it
+:returns: A boolean indicating if the location-adding was successful
+'''
 def add_loc_to_indicators(pulse):
-    j = 1
+    # j = 1
     for indicator in pulse["indicators"]:
         if indicator['type'] == 'IPv4' or indicator['type'] == 'IPv6':
             print("Updating indicator with location.")
@@ -423,8 +442,8 @@ def add_loc_to_indicators(pulse):
                 # WIP: adding the qualitative location to the indicator data
         else:
             indicator.update([("location", None)])
-        es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
-        j = j + 1
+        # es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
+        # j = j + 1
     return True
 
 

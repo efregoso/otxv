@@ -3,17 +3,17 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Login to OTX-V</title>
+<title>IP Lookup Service</title>
 </head>
 
 <body>
     <?php
     set_time_limit(100);
     global $key, $socket, $bytes, $address, $port;
-    $key = $_POST["apikey"];
-    $bytes = base64_encode($key);
+    $ip = $_POST["ip"];
+    $bytes = base64_encode($ip);
     $address = 'localhost';
-    $port = 10000;
+    $port = 10001;
     $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
     if ($socket === false){
         echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
@@ -23,20 +23,12 @@
         echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
     };
     socket_write($socket, $bytes, strlen($bytes));
-    ?>
-Sending key to server...
-    <?php
     global $buf, $boolean;
-    socket_recv($socket, $buf, 8, MSG_WAITALL);
-    $boolean = base64_decode($buf);
-    if ($boolean == "True") {
-        header("Location: http://localhost:5601/app/kibana");
-        exit;
-    }
-    else {
-        header("Location: http://localhost:8000/loginerror.html");
-        exit;
-    }
+    socket_recv($socket, $buf, 100, MSG_WAITALL);
+    $ipinfo = base64_decode($buf);
+    ?>
+<p><?php echo $ipinfo; ?></p>
+    <?php
     socket_close($socket);
     ?>
 </body>
