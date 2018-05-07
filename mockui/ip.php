@@ -24,8 +24,10 @@
     };
     socket_write($socket, $bytes, strlen($bytes));
     global $buf, $boolean;
-    socket_recv($socket, $buf, 100, MSG_WAITALL);
-    $ipinfo = base64_decode($buf);
+    while socket.recv($socket, $buf, 10, MSG_WAITALL) != null {
+        socket_recv($socket, $buf, 10, MSG_WAITALL);
+        $ipinfo += base64_decode($buf);
+    }
     ?>
 <p><?php echo $ipinfo; ?></p>
     <?php

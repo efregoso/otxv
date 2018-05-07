@@ -1,6 +1,6 @@
 import socket
 import base64
-import port_checker
+import ping
 import pprint
 
 # variables defining the Port-checking service's host & port
@@ -27,7 +27,7 @@ def check_port():
     print("PC Service: Decoded to: ")
     print(ip)
     print("PC service: Checking IP port...")
-    info = str.encode(str(port_checker.check_port(ip)))
+    info = str.encode(str(ping(ip)))
     # send info back to php script
     bool = base64.b64encode(info)
     print("PC service: Sending PC result back to browser...")

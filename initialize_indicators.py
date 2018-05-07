@@ -4,7 +4,9 @@ import ip_lookup
 import warnings
 import socket
 import base64
-import ip_service
+import stylo_key
+import stylo_unigram
+import stylo_bigram
 import port_checker
 import pprint
 import datetime
@@ -20,13 +22,19 @@ cacheh = open("cache_hits.txt", "w")
 HOST = 'localhost'
 PORT = 10000
 
+
 '''
-Main method for the program. Collects apikey from the browser, validates it, initializes ElasticSearch, & loads
+Main method for the program. Collects API key from the browser, validates it, initializes ElasticSearch, & loads
 all pulse objects into the cache. 
 '''
 def main():
     # a boolean for validating the API key
     is_validated = False
+    print("Initializing socket.")
+    global s
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print("Binding socket.")
+    s.bind((HOST, PORT))
     # retrieve API key from login page & validate
     while is_validated is False:
         is_validated = validate_apikey()
@@ -38,21 +46,18 @@ def main():
     conn.close()
     # Start IP service
     # DEBUG: HANGS UNTIL IT GETS A PING
-    print("Starting IP Service...")
-    ip_service.main()
+    # print("Starting IP Service...")
+    # ip_service.main()
     # Start port-checking service
     # DEBUG: HANGS UNTIL IT GETS A PING
-    print("Starting port checking service...")
-    port_checker.main()
+    # print("Starting port checking service...")
+    # port_checker.main()
     print("Configuring indeces...")
-    # DEBUGGING: Save all indicator data to cache document & send to Elasticsearch with incremental IDs
     # Creating the index before adding things to it so that the mapping can be customized
     if es.indices.exists(index=apikey):
         # go through each pulse & check when it was last modified & if a pulse by that name exists in the index already.
         # if not, copy. if there is, update from last modified date from the index
         for pulse in pulses[0:200]:
-            # cache_pulses(pulse)
-            # cache_indicator_data(pulse)
             print(str(es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))))
             if es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16)):
                 pulse_match = es.get_source(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))
@@ -318,20 +323,17 @@ def main():
         }
         es.indices.put_mapping(index="indicators" + apikey, doc_type="indicator", body=mapping)
         print("Mappings created.  Beginning pulse loading.")
-        # DEBUGGING: just the first thousand for now
+        # DEBUGGING: just the first 200 for now
         for pulse in pulses[0:200]:
-            # cache the pulse & its indicator data
-            # cache_pulses(pulse)
-            # cache_indicator_data(pulse)
             add_loc_to_indicators(pulse)
-            # convert the pulse's natural hexadecimal ID to an integer ID
+            # convert the pulse's natural hexadecimal ID to an integer ID & index
             es.index(index=apikey, doc_type="pulse", id=int(pulse["id"], 16), body=pulse)
             print("Added pulse with ID: " + str(int(pulse["id"], 16)))
-    # close the filestream for the caches
-    # cachep.close()
-    # cacheh.close()
     # signal that the program is done
-    print("System done")
+    print("Pulse loading finished!")
+    print("Waiting for any requests on port " + str(PORT) + "...")
+    while (true):
+        handle_requests()
     exit()
 
 
@@ -386,10 +388,6 @@ Function for initializing the login process with sockets to the login.php script
 '''
 def validate_apikey():
     # retrieve API key from login page
-    print("Initializing socket.")
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print("Binding socket.")
-    s.bind((HOST, PORT))
     print("Listening for connections.")
     s.listen()
     global conn
@@ -418,6 +416,51 @@ def validate_apikey():
     print("API key valid!")
     return True
 
+
+'''
+A function for waiting for requests
+
+
+'''
+def handle_requests():
+    print("Awaiting new requests...")
+    s.listen()
+    global conn
+    conn, addr = s.accept()
+    print("Accepted connection")
+    print("Receiving data.")
+    data = conn.recv(1024)
+    print("Received: ")
+    print(data)
+    global req
+    req = base64.b64decode(data)
+    print("Decoded to: ")
+    print(req)
+    # maltime & kibana are separate functions
+    if req[0] == "stylokey":
+        result = stylo_key.run_stylometry_on(req[1], req[2], req[3], req[4])
+        return result
+    elif req == "stylounigram":
+        result = stylo_unigram.run_stylometry_on(req[1], req[2], req[3], req[4])
+        return result
+    elif req == "stylobigram":
+        result = stylo_bigram.run_stylometry_on(req[1], req[2], req[3], req[4])
+        return result
+    elif req == "iplookup":
+        result = ip_lookup.lookup_ip_info(req[1])
+        return result
+    elif req == "portcheck":
+        result = port_checker.check_port(req[1])
+        return result
+    else:
+        print("Invalid request received.")
+        return False
+    # send result back to script
+    bool = base64.b64encode(result)
+    print("Sending result back to script...")
+    conn.sendall(bool)
+
+
 '''
 A function for adding geopoint data to indicators with IPv4 & IPv6 type indicators.
 
@@ -425,7 +468,6 @@ A function for adding geopoint data to indicators with IPv4 & IPv6 type indicato
 :returns: A boolean indicating if the location-adding was successful
 '''
 def add_loc_to_indicators(pulse):
-    # j = 1
     for indicator in pulse["indicators"]:
         if indicator['type'] == 'IPv4' or indicator['type'] == 'IPv6':
             print("Updating indicator with location.")
@@ -442,8 +484,6 @@ def add_loc_to_indicators(pulse):
                 # WIP: adding the qualitative location to the indicator data
         else:
             indicator.update([("location", None)])
-        # es.index(index="indicators", doc_type="indicator", id=j, body=indicator)
-        # j = j + 1
     return True
 
 

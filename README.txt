@@ -4,6 +4,18 @@ Author: Elizabeth Fregoso
 A log for changes made as OTX-V is developed.
 
 
+5/7/2018
+
+    What I want to do this time: Finish Malware Timeline & Port checking tabs, Vocabulary highlighting feature,
+        Generating documentation with pydoc, Finish qualitative location data adding
+
+
+
+    Completed:
+    Next time:
+
+------------------------------------------------------------------------------------------
+
 5/6/2018
 
     What I want to do this time: Finish Malware Timeline & Port checking tabs, Finish updating to last saved date
@@ -12,10 +24,13 @@ A log for changes made as OTX-V is developed.
 
     Finished updating to last modified date.  Initialization should be much quicker now.
 
-    Working on the STYLO tab.
+    Working on the STYLO tab...
 
-    Completed: Finish updating to last saved date, Finish authentication (again)
-    Next time:
+    Finished stylometry functions & IP lookup functions.  Still working on display in the web browser with PHP scripts.
+
+    Completed: Finish updating to last saved date, Finish authentication (again), Possible stylometry section
+    Next time: Finish Malware Timeline & Port checking tabs, Vocabulary highlighting feature,
+        Generating documentation with pydoc, Finish qualitative location data adding
 
 ------------------------------------------------------------------------------------------
 
