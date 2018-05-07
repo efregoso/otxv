@@ -1,6 +1,6 @@
 import socket
 import base64
-import ping
+# import ping
 import pprint
 
 # variables defining the Port-checking service's host & port

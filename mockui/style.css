@@ -33,3 +33,11 @@
 #welcome {
 	font-size:100px;
 }
+
+nav #site-title {
+	float:left;
+}
+
+nav #site-title a:hover{
+	text-decoration:none !important;
+}

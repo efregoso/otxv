@@ -9,26 +9,29 @@
 
 <body>
 <!-- A navigation bar and a central view that loads.-->
+<div id="header">
 <nav id="top-nav">
+<a href="index.html" id="site-title">OTX-V</a>
 <a href="maltime.html">Malware Timeline</a>
 <a href="iplookup.html">IP Lookup</a>
 <a href="portchecker.html">Port Checker</a>
 <a href="stylo.html">STYLO</a>
+<a href="http://localhost:5601/app/kibana">Kibana</a>
+<a href="glossary.html">Glossary</a>
 </nav>
+</div>
 
 <div id="main-body">
 
 <p>Enter a control text block:</p>
-<form id="control-text-form">
+<form id="styloform" method="post" action="stylo.php">
 </form>
 <textarea rows="10" form="control-text-form" name="ctrl-text"></textarea>
 <p>Enter comparison text blocks:</p>
 <textarea rows="10" form="compare-text-form" name="comp-text1"></textarea>
 <textarea rows="10" form="compare-text-form" name="comp-text2"></textarea>
 <textarea rows="10" form="compare-text-form" name="comp-text3"></textarea>
-
 <p>Type of analysis to perform?</p>
-<form id="comparer-text-form">
 <input type="radio" value="Keyword" name="keyword">Keyword<br/>
 <input type="radio" value="Unigram" name="unigram">Unigram<br/>
 <input type="radio" value="Bigram" name="bigram">Bigram<br/>

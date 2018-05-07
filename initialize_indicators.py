@@ -1,6 +1,5 @@
 from OTXv2 import OTXv2
 from elasticsearch import Elasticsearch
-import ip_lookup
 import warnings
 import socket
 import base64
@@ -8,11 +7,8 @@ import stylo_key
 import stylo_unigram
 import stylo_bigram
 import port_checker
-import pprint
-import datetime
-import create_demo_cache
+import ip_lookup
 
-# DEBUGGING: my API key is "de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb"
 # an instance of ElasticSearch for sending/organizing data
 es = Elasticsearch()
 # cache file streams to pulses and hits
@@ -21,6 +17,7 @@ cacheh = open("cache_hits.txt", "w")
 # HOST & PORT for the login socket
 HOST = 'localhost'
 PORT = 10000
+# DEBUGGING: my API key is "de0e60ea625d2b840e464f5d44299fcd513a3da48d2d7dd8c3214474dc6dbadb"
 
 
 '''
@@ -57,8 +54,8 @@ def main():
     if es.indices.exists(index=apikey):
         # go through each pulse & check when it was last modified & if a pulse by that name exists in the index already.
         # if not, copy. if there is, update from last modified date from the index
-        for pulse in pulses[0:200]:
-            print(str(es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))))
+        for pulse in pulses[0:300]:
+            print("Have pulse already?: " + str(es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))))
             if es.exists(index=apikey, doc_type="pulse", id=int(pulse["id"], 16)):
                 pulse_match = es.get_source(index=apikey, doc_type="pulse", id=int(pulse["id"], 16))
                 if pulse["modified"] != pulse_match["modified"]:
@@ -332,7 +329,7 @@ def main():
     # signal that the program is done
     print("Pulse loading finished!")
     print("Waiting for any requests on port " + str(PORT) + "...")
-    while (true):
+    while True:
         handle_requests()
     exit()
 
@@ -429,36 +426,116 @@ def handle_requests():
     conn, addr = s.accept()
     print("Accepted connection")
     print("Receiving data.")
-    data = conn.recv(1024)
-    print("Received: ")
-    print(data)
-    global req
-    req = base64.b64decode(data)
-    print("Decoded to: ")
-    print(req)
-    # maltime & kibana are separate functions
-    if req[0] == "stylokey":
-        result = stylo_key.run_stylometry_on(req[1], req[2], req[3], req[4])
-        return result
-    elif req == "stylounigram":
-        result = stylo_unigram.run_stylometry_on(req[1], req[2], req[3], req[4])
-        return result
-    elif req == "stylobigram":
-        result = stylo_bigram.run_stylometry_on(req[1], req[2], req[3], req[4])
-        return result
-    elif req == "iplookup":
-        result = ip_lookup.lookup_ip_info(req[1])
-        return result
-    elif req == "portcheck":
-        result = port_checker.check_port(req[1])
-        return result
+    buf = conn.recv(1024)
+    print("Received method code: ")
+    print(buf)
+    method = base64.b64decode(buf)
+    print("Decoded to method code:")
+    print(str(method))
+    if method == b'stylokey':
+        print("Method determined as stylokey.")
+        buf = conn.recv(1024)
+        print("Received ctrl data: ")
+        print(buf)
+        ctrl = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to ctrl data: ")
+        print(ctrl)
+        buf = conn.recv(1024)
+        print("Received comp1 data: ")
+        print(buf)
+        comp1 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp1 data: ")
+        print(comp1)
+        buf = conn.recv(1024)
+        print("Received comp2 data: ")
+        print(buf)
+        comp2 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp2 data: ")
+        print(comp2)
+        buf = conn.recv(1024)
+        print("Received comp3 data: ")
+        print(buf)
+        comp3 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp3 data: ")
+        print(comp3)
+        result = stylo_key.run_stylometry_on(ctrl, comp1, comp2, comp3)
+    elif method == b'stylounigram':
+        buf = conn.recv(1024)
+        print("Received ctrl data: ")
+        print(buf)
+        ctrl = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to ctrl data: ")
+        print(ctrl)
+        buf = conn.recv(1024)
+        print("Received comp1 data: ")
+        print(buf)
+        comp1 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp1 data: ")
+        print(comp1)
+        buf = conn.recv(1024)
+        print("Received comp2 data: ")
+        print(buf)
+        comp2 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp2 data: ")
+        print(comp2)
+        buf = conn.recv(1024)
+        print("Received comp3 data: ")
+        print(buf)
+        comp3 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp3 data: ")
+        print(comp3)
+        result = stylo_unigram.run_stylometry_on(ctrl, comp1, comp2, comp3)
+    elif method == b'stylobigram':
+        buf = conn.recv(1024)
+        print("Received ctrl data: ")
+        print(buf)
+        ctrl = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to ctrl data: ")
+        print(ctrl)
+        buf = conn.recv(1024)
+        print("Received comp1 data: ")
+        print(buf)
+        comp1 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp1 data: ")
+        print(comp1)
+        buf = conn.recv(1024)
+        print("Received comp2 data: ")
+        print(buf)
+        comp2 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp2 data: ")
+        print(comp2)
+        buf = conn.recv(1024)
+        print("Received comp3 data: ")
+        print(buf)
+        comp3 = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to comp3 data: ")
+        print(comp3)
+        result = stylo_bigram.run_stylometry_on(ctrl, comp1, comp2, comp3)
+    elif method == b'iplookup':
+        print("Method determined as iplookup.")
+        buf = conn.recv(1024)
+        print("Received IP data: ")
+        print(buf)
+        ipaddr = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to IP: ")
+        print(ipaddr)
+        result = str.encode(str(ip_lookup.lookup_ip_info(ipaddr)))
+    elif method == b'portcheck':
+        buf = conn.recv(1024)
+        print("Received IP data: ")
+        print(buf)
+        ipaddr = base64.b64decode(buf).decode("utf-8")
+        print("Decoded to IP: ")
+        print(ipaddr)
+        result = port_checker.check_port(ipaddr)
     else:
         print("Invalid request received.")
-        return False
+        result = b'False'
     # send result back to script
     bool = base64.b64encode(result)
     print("Sending result back to script...")
     conn.sendall(bool)
+    print("Sent result.")
 
 
 '''

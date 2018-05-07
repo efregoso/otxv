@@ -48,6 +48,7 @@ def run_stylometry_on(list):
 def create_hashtable_alpha(textsamp):
     dict = {}
     line = textsamp.lower()
+    i = 0
     # remove everything that isn't an alphanumeric character
     while i + 1 < len(line):
         if line[i].isalpha() and line[i].isalpha():
