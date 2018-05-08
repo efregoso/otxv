@@ -41,14 +41,6 @@ def main():
     conn.sendall(bool)
     print("Closing socket.")
     conn.close()
-    # Start IP service
-    # DEBUG: HANGS UNTIL IT GETS A PING
-    # print("Starting IP Service...")
-    # ip_service.main()
-    # Start port-checking service
-    # DEBUG: HANGS UNTIL IT GETS A PING
-    # print("Starting port checking service...")
-    # port_checker.main()
     print("Configuring indeces...")
     # Creating the index before adding things to it so that the mapping can be customized
     if es.indices.exists(index=apikey):
@@ -433,7 +425,7 @@ def handle_requests():
     print("Decoded to method code:")
     print(str(method))
     if method == b'stylokey':
-        print("Method determined as stylokey.")
+        print("Method determined as keyword analysis.")
         buf = conn.recv(1024)
         print("Received ctrl data: ")
         print(buf)
@@ -458,8 +450,9 @@ def handle_requests():
         comp3 = base64.b64decode(buf).decode("utf-8")
         print("Decoded to comp3 data: ")
         print(comp3)
-        result = stylo_key.run_stylometry_on(ctrl, comp1, comp2, comp3)
+        result = str.encode(str(stylo_key.run_stylometry_on([ctrl, comp1, comp2, comp3])))
     elif method == b'stylounigram':
+        print("Method determined as unigram analysis.")
         buf = conn.recv(1024)
         print("Received ctrl data: ")
         print(buf)
@@ -484,8 +477,9 @@ def handle_requests():
         comp3 = base64.b64decode(buf).decode("utf-8")
         print("Decoded to comp3 data: ")
         print(comp3)
-        result = stylo_unigram.run_stylometry_on(ctrl, comp1, comp2, comp3)
+        result = str.encode(str(stylo_unigram.run_stylometry_on([ctrl, comp1, comp2, comp3])))
     elif method == b'stylobigram':
+        print("Method determined as bigram analysis.")
         buf = conn.recv(1024)
         print("Received ctrl data: ")
         print(buf)
@@ -510,27 +504,28 @@ def handle_requests():
         comp3 = base64.b64decode(buf).decode("utf-8")
         print("Decoded to comp3 data: ")
         print(comp3)
-        result = stylo_bigram.run_stylometry_on(ctrl, comp1, comp2, comp3)
+        result = str.encode(str(stylo_bigram.run_stylometry_on([ctrl, comp1, comp2, comp3])))
     elif method == b'iplookup':
-        print("Method determined as iplookup.")
+        print("Method determined as IP lookup.")
         buf = conn.recv(1024)
         print("Received IP data: ")
         print(buf)
         ipaddr = base64.b64decode(buf).decode("utf-8")
         print("Decoded to IP: ")
         print(ipaddr)
-        result = str.encode(str(ip_lookup.lookup_ip_info(ipaddr)))
+        result = str.encode(ip_lookup.lookup_full_ip_info(ipaddr))
     elif method == b'portcheck':
+        print("Method determined as port check.")
         buf = conn.recv(1024)
         print("Received IP data: ")
         print(buf)
         ipaddr = base64.b64decode(buf).decode("utf-8")
         print("Decoded to IP: ")
         print(ipaddr)
-        result = port_checker.check_port(ipaddr)
+        result = str.encode(str(port_checker.check_port(ipaddr)))
     else:
         print("Invalid request received.")
-        result = b'False'
+        result = b'Invalid request received. Please try again.'
     # send result back to script
     bool = base64.b64encode(result)
     print("Sending result back to script...")
@@ -559,6 +554,8 @@ def add_loc_to_indicators(pulse):
                     del ipgeocode["lng"]
                 indicator.update([("location", ipgeocode)])
                 # WIP: adding the qualitative location to the indicator data
+                qual_loc = ip_lookup.lookup_qual_ip_info(indicator["indicator"])
+                indicator.update([("qual_location", qual_loc)])
         else:
             indicator.update([("location", None)])
     return True

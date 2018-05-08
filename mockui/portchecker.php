@@ -24,7 +24,7 @@
     };
     socket_write($socket, $bytes, strlen($bytes));
     global $buf, $boolean;
-    socket_recv($socket, $buf, 100, MSG_WAITALL);
+    $buf = socket_read($socket, 100);
     $checkresult = base64_decode($buf);
     ?>
 <p><?php echo $checkresult; ?></p>

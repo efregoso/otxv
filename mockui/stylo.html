@@ -8,11 +8,9 @@
 </head>
 
 <body>
-<!-- A navigation bar and a central view that loads.-->
 <div id="header">
 <nav id="top-nav">
 <a href="index.html" id="site-title">OTX-V</a>
-<a href="maltime.html">Malware Timeline</a>
 <a href="iplookup.html">IP Lookup</a>
 <a href="portchecker.html">Port Checker</a>
 <a href="stylo.html">STYLO</a>
@@ -22,20 +20,19 @@
 </div>
 
 <div id="main-body">
-
+<h1>STYLO: Stylometric Text Analysis Tool</h1>
 <p>Enter a control text block:</p>
-<form id="styloform" method="post" action="stylo.php">
-</form>
-<textarea rows="10" form="control-text-form" name="ctrl-text"></textarea>
-<p>Enter comparison text blocks:</p>
-<textarea rows="10" form="compare-text-form" name="comp-text1"></textarea>
-<textarea rows="10" form="compare-text-form" name="comp-text2"></textarea>
-<textarea rows="10" form="compare-text-form" name="comp-text3"></textarea>
+<textarea rows="10" form="styloform" name="ctrl"></textarea>
+<p>Enter up to three comparison text blocks:</p>
+<textarea rows="10" form="styloform" name="comp1"></textarea>
+<textarea rows="10" form="styloform" name="comp2"></textarea>
+<textarea rows="10" form="styloform" name="comp3"></textarea>
 <p>Type of analysis to perform?</p>
-<input type="radio" value="Keyword" name="keyword">Keyword<br/>
-<input type="radio" value="Unigram" name="unigram">Unigram<br/>
-<input type="radio" value="Bigram" name="bigram">Bigram<br/>
-<input type="submit" value="Submit" name="submit-key" onclick="/stylo/stylo.js">
+<form id="styloform" method="post" action="stylo.php">
+<input type="radio" value="stylokey" name="analysis">Keyword<br/>
+<input type="radio" value="stylounigram" name="analysis">Unigram<br/>
+<input type="radio" value="stylobigram" name="analysis">Bigram<br/>
+<input type="submit" value="Submit">
 </form>
 
 </div>

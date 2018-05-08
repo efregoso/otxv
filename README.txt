@@ -4,15 +4,29 @@ Author: Elizabeth Fregoso
 A log for changes made as OTX-V is developed.
 
 
+5/8/2018
+
+    What I want to do this time: Finish Malware Timeline & Port checking tabs, Vocabulary highlighting feature,
+        Generating documentation with pydoc
+
+    Completed:
+    Next time:
+
+------------------------------------------------------------------------------------------
+
+
 5/7/2018
 
     What I want to do this time: Finish Malware Timeline & Port checking tabs, Vocabulary highlighting feature,
         Generating documentation with pydoc, Finish qualitative location data adding
 
+    Everything except port checking and the malware timeline now appears to work for me in the browser.
 
+    Finished qualitative location data filtering.
 
-    Completed:
-    Next time:
+    Completed: Finish IP lookup, Finish stylometry tabs, Finish qualitative location data adding
+    Next time: Finish Malware Timeline & Port checking tabs, Vocabulary highlighting feature,
+        Generating documentation with pydoc
 
 ------------------------------------------------------------------------------------------
 

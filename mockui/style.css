@@ -1,10 +1,15 @@
-﻿#top-nav {
+﻿h1 {
+	text-align:center;
+}
+
+#top-nav {
 	position:fixed;
 	width:100%;
 	height:10%;
 	top:0px;
 	left:0px;
 	background-color:black;
+	z-index:2;
 }
 
 #top-nav a {
@@ -22,22 +27,64 @@
 	background-color:darkgrey;
 }
 
-#top-nav a:active {
-	text-color:pink;
-}
-
 #main-body {
-	margin-top:100px;
+	padding-top:100px;
+	height:100%;
+	width:100%;
 }
 
 #welcome {
 	font-size:100px;
+	text-align:center;
 }
 
 nav #site-title {
 	float:left;
+	font-size:50px;
+	position:fixed;
+	top:0%;
 }
 
 nav #site-title a:hover{
 	text-decoration:none !important;
+}
+
+textarea {
+	width:100%;
+	margin-bottom:5px;
+	margin-top:5px;
+}
+
+body{
+	font-family:"Lato";
+	background-color:lightgrey;
+}
+
+#welcome-paragraph {
+	text-align:center;
+}
+
+#ip-info, #stylo-info {
+	border:solid 10px black;
+	margin:7px;
+	background-color:white;
+}
+
+#ip-info td, #ip-info th {
+	border:solid 2px black;
+}
+
+@font-face {
+	font-family:"Lato";
+	src: url("./fonts/Lato-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family:"Lato Bold";
+	src: url("./fonts/Lato_Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family:"Merriweather";
+	src: url("./fonts/Merriweather-Regular.ttf") format("truetype");
 }

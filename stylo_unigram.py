@@ -42,6 +42,37 @@ def run_stylometry_on(list):
         samp3score = str(tally_weighted_score(ctrl, samp3, e))
         print("Keyword score between control and Sample 3: " + samp3score)
     print("Keyword stylometry complete")
+    # turn into a string
+    result = str(ctrl) + "~" + str(samp1) + "~" + str(samp2) + "~" + str(samp3) + "~" + samp1score + "~" + samp2score + "~" + samp3score
+    return result
+
+
+def run_stylometry_on_dict(list):
+    ctrl_text = list[0]
+    comp_samp1 = list[1]
+    comp_samp2 = list[2]
+    comp_samp3 = list[3]
+    if ctrl_text is not None:
+        ctrl = create_hashtable_alpha(ctrl_text)
+        print(ctrl)
+        e = ctrl.keys()
+    if comp_samp1 is not None:
+        samp1 = create_hashtable_alpha(comp_samp1)
+        print(samp1)
+        samp1score = str(tally_weighted_score(ctrl, samp1, e))
+        print("Keyword score between control and Sample 1: " + samp1score)
+    if comp_samp2 is not None:
+        samp2 = create_hashtable_alpha(comp_samp2)
+        print(samp2)
+        samp2score = str(tally_weighted_score(ctrl, samp2, e))
+        print("Keyword score between control and Sample 2: " + samp2score)
+    if comp_samp3 is not None:
+        samp3 = create_hashtable_alpha(comp_samp3)
+        print(samp3)
+        samp3score = str(tally_weighted_score(ctrl, samp3, e))
+        print("Keyword score between control and Sample 3: " + samp3score)
+    print("Keyword stylometry complete")
+    # turn into a list
     resultdict = {"ctrl_hash": ctrl, "samp1_hash": samp1, "samp2_hash": samp2, "samp3_hash": samp3, "samp1_score": samp1score, "samp2_score": samp2score, "samp3_score": samp3score}
     return resultdict
 
@@ -77,4 +108,4 @@ def tally_weighted_score(control, compare, e):
 
 
 if __name__ == "__main__":
-    main("Hellllllo butt", "Byeeeeee butt", "Byeeeeee Byeeeeee", "Holle")
+    main("Hello there", "Bye there", "Bye Bye", "Yes")

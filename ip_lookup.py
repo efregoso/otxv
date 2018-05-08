@@ -2,6 +2,7 @@ from ipwhois import IPWhois
 import googlemaps
 import warnings
 import pprint
+import collections
 
 
 '''
@@ -46,6 +47,25 @@ def lookup_ip_info(ip):
             return None
 
 
+
+def lookup_qual_ip_info(ip):
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        # create a whois instance for the given IP
+        whois = IPWhois(ip)
+        iplookup = whois.lookup_rdap()
+        # need a list here to obtain the first code in the objects dictionary
+        keyview = iplookup["objects"].keys()
+        itr = list(keyview)
+        # continue only if there exist keys
+        if len(itr) > 0:
+            code = itr[0]
+            location = iplookup["objects"][code]["contact"]["address"][0]["value"]
+            # DEBUG
+            print(location)
+            return location
+
+
 '''
 Lookup DNS information about a given IP address using the whois API & cache to file.
 
@@ -65,6 +85,44 @@ def cache_ip_info(ip):
     return True
 
 
+def lookup_full_ip_info(ip):
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        # create a whois instance for the given IP
+        whois = IPWhois(ip)
+        result = whois.lookup_rdap()
+        # iterator object for holding "object's" keys
+        objkeyview = result["objects"].keys()
+        objkeyitr = list(objkeyview)
+        # create a new dictionary object with all cool fields in it
+        asn_description = result["asn_description"]
+        ip_version = result["network"]["ip_version"]
+        if len(objkeyitr) > 0:
+            ip_owner_name = result["objects"][objkeyitr[0]]["contact"]["name"]
+            ip_owner_location = result["objects"][objkeyitr[0]]["contact"]["address"][0]["value"]
+            ip_contact_name = result["objects"][objkeyitr[1]]["contact"]["name"]
+            ip_contact_location = result["objects"][objkeyitr[1]]["contact"]["address"][0]["value"]
+            ip_contact_email = result["objects"][objkeyitr[1]]["contact"]["email"][0]["value"]
+            ip_contact_phone = result["objects"][objkeyitr[1]]["contact"]["phone"][0]["value"]
+        else:
+            ip_owner_name = None
+            ip_owner_location = None
+            ip_contact_name = None
+            ip_contact_location = None
+            ip_contact_email = None
+            ip_contact_phone = None
+        result = asn_description + "~" + ip_version + "~" + ip_owner_name + "~" + ip_owner_location + "~" + ip_contact_name + "~" + ip_contact_location + "~" + ip_contact_email + "~" + ip_contact_phone
+        print(result)
+        return result
+        # MAY HAVE TO MAKE THIS A LIST INSTEAD DEPENDING ON HOW DICT TRANSFERRED TO PHP
+
+
+def main():
+    result = lookup_full_ip_info('129.22.21.193')
+    print(result)
+    result = lookup_full_ip_info('66.99.86.8')
+    print(result)
+
+
 if __name__ == '__main__':
-    lookup_ip_info('66.99.86.8')
-    lookup_ip_info('129.22.21.193')
+    main()
