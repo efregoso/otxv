@@ -1,7 +1,9 @@
 '''
-Amendments made to original ping Python package, ping3, from PyPI by Elizabeth.
+Amendments made to original ping Python package, ping3, from PyPI by Elizabeth Fregoso.
 
 Changed so that instead of printing to standardout, verbose_ping returns a string object with all output.
+
+Original author: Kai Yan (https://github.com/kyan001)
 
 '''
 
