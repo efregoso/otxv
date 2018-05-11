@@ -4,16 +4,17 @@ Author: Elizabeth Fregoso
 A log for changes made as OTX-V is developed.
 
 
-5/8/2018
+5/11/2018
 
     What I want to do this time: Finish Malware Timeline & Port checking tabs, Vocabulary highlighting feature,
         Generating documentation with pydoc
 
-    Completed:
-    Next time:
+    Will now be working on this project independently from classes.  Testing the new remote commit to Github.
+
+    Completed: ---
+    Next time: ---
 
 ------------------------------------------------------------------------------------------
-
 
 5/7/2018
 

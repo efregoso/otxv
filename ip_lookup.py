@@ -19,11 +19,6 @@ def lookup_ip_info(ip):
         whois = IPWhois(ip)
         # create a Google Maps API instance
         gmap = googlemaps.Client('AIzaSyAJYrRExLKqEW794dHT9QuO82aMt2VO3Yg')
-        # DEBUG: Add this gmap location to the indicator data
-        # This will need to be done from within the ip_lookup.py module.
-        # ip_lookup.lookup_qual_ip_info(indicator["indicator"])
-        # indicator.update([("qual_location", )])
-        # DEBUGGING: print(indicator["location"])
         # lookup the information for this IP and place in a dictionary object
         iplookup = whois.lookup_rdap()
         # need a list here to obtain the first code in the objects dictionary

@@ -159,7 +159,7 @@ def verbose_ping(dest_addr, timeout=4, count=4):
         else:
             delay = delay * 1000
             result += "{}ms".format(int(delay))
-            result += "\n"
+            result += " ~ "
     return result
 
 
