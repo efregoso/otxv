@@ -1,0 +1,9 @@
+#OTX-V: To-Do
+
+##Features
+- [ ] Frequency of hits from a certain router
+- [ ] Frequency of certain threats
+- [ ] Dwell time
+- [ ] Port checker
+
+##Bugs/Issues

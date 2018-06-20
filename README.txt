@@ -492,5 +492,5 @@ ON FIRST INSTALL, DOWNLOAD:
     Elasticsearch
     Python
     JDK 8.0
-    From PIP: install pandas, OTXv2, elasticsearch
+    From PIP: install pandas, OTXv2, elasticsearch, ping3, ipwhois, gmaps
 
