@@ -3,9 +3,9 @@ from elasticsearch import Elasticsearch
 import warnings
 import socket
 import base64
-import stylo_key
-import stylo_unigram
-import stylo_bigram
+import stylometry_tools.stylo_key as stylo_key
+import stylometry_tools.stylo_unigram as stylo_unigram
+import stylometry_tools.stylo_bigram as stylo_bigram
 import port_checker
 import ip_lookup
 
