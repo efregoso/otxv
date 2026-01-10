@@ -1,111 +1,107 @@
+'''
+A naive implementation of unigram stylometry analysis.
+Compares the frequency of individual letters in a control text to those in comparison samples.
+'''
+
+from typing import Dict, TypedDict, List
 
 
-def main(ctrl_text, comp_samp1, comp_samp2, comp_samp3):
-    ctrl = create_hashtable_alpha(ctrl_text)
-    print(ctrl)
-    samp1 = create_hashtable_alpha(comp_samp1)
-    print(samp1)
-    samp2 = create_hashtable_alpha(comp_samp2)
-    print(samp2)
-    samp3 = create_hashtable_alpha(comp_samp3)
-    print(samp3)
-    e = ctrl.keys()
-    print("Unigram score between control and Sample 1: " + str(tally_weighted_score(ctrl, samp1, e)))
-    print("Unigram score between control and Sample 2: " + str(tally_weighted_score(ctrl, samp2, e)))
-    print("Unigram score between control and Sample 3: " + str(tally_weighted_score(ctrl, samp3, e)))
-    print("Unigram stylometry done")
+error_dict = {
+    "CTRL_IS_NONE": ValueError("Control text cannot be None"),
+    "SAMP_IS_NONE": ValueError("At least one comparison sample is required"),
+    "SAMP_LIST_IS_NONE": ValueError("Comparison samples list cannot be None"),
+}
+
+
+class CharacterFrequencyDict(TypedDict):
+    character: str
+    frequency: int
+
+
+def main(ctrl_text: str, samples_list: List[str]):
+    run_unigram_stylometry_on_text(ctrl_text, samples_list)
     exit(0)
 
 
-def run_stylometry_on(list):
-    ctrl_text = list[0]
-    comp_samp1 = list[1]
-    comp_samp2 = list[2]
-    comp_samp3 = list[3]
-    if ctrl_text is not None:
-        ctrl = create_hashtable_alpha(ctrl_text)
-        print(ctrl)
-        e = ctrl.keys()
-    if comp_samp1 is not None:
-        samp1 = create_hashtable_alpha(comp_samp1)
-        print(samp1)
-        samp1score = str(tally_weighted_score(ctrl, samp1, e))
-        print("Keyword score between control and Sample 1: " + samp1score)
-    if comp_samp2 is not None:
-        samp2 = create_hashtable_alpha(comp_samp2)
-        print(samp2)
-        samp2score = str(tally_weighted_score(ctrl, samp2, e))
-        print("Keyword score between control and Sample 2: " + samp2score)
-    if comp_samp3 is not None:
-        samp3 = create_hashtable_alpha(comp_samp3)
-        print(samp3)
-        samp3score = str(tally_weighted_score(ctrl, samp3, e))
-        print("Keyword score between control and Sample 3: " + samp3score)
-    print("Keyword stylometry complete")
-    # turn into a string
-    result = str(ctrl) + "~" + str(samp1) + "~" + str(samp2) + "~" + str(samp3) + "~" + samp1score + "~" + samp2score + "~" + samp3score
-    return result
+def run_unigram_stylometry_on_text(ctrl_text: str, samples_text_list: List[str]):
+    if ctrl_text is None:
+        raise error_dict["CTRL_IS_NONE"]
+
+    if samples_text_list is None:
+        raise error_dict["SAMP_LIST_IS_NONE"]
+    
+    sample_scores = []
+    ctrl_dict = create_character_hashtable(ctrl_text)
+
+    for index, sample in enumerate(samples_text_list):
+        if sample is not None:
+            sample_dict = create_character_hashtable(sample)
+            sample_score = tally_weighted_score(ctrl_dict, sample_dict)
+            sample_scores.append(sample_score)
+        else:
+            print("Sample text at index " + str(index) + " is None, skipping sample.")
+    
+    print("Unigram stylometry complete")
+    print(results_as_string(ctrl_dict, samples_text_list, sample_scores))
 
 
-def run_stylometry_on_dict(list):
-    ctrl_text = list[0]
-    comp_samp1 = list[1]
-    comp_samp2 = list[2]
-    comp_samp3 = list[3]
-    if ctrl_text is not None:
-        ctrl = create_hashtable_alpha(ctrl_text)
-        print(ctrl)
-        e = ctrl.keys()
-    if comp_samp1 is not None:
-        samp1 = create_hashtable_alpha(comp_samp1)
-        print(samp1)
-        samp1score = str(tally_weighted_score(ctrl, samp1, e))
-        print("Keyword score between control and Sample 1: " + samp1score)
-    if comp_samp2 is not None:
-        samp2 = create_hashtable_alpha(comp_samp2)
-        print(samp2)
-        samp2score = str(tally_weighted_score(ctrl, samp2, e))
-        print("Keyword score between control and Sample 2: " + samp2score)
-    if comp_samp3 is not None:
-        samp3 = create_hashtable_alpha(comp_samp3)
-        print(samp3)
-        samp3score = str(tally_weighted_score(ctrl, samp3, e))
-        print("Keyword score between control and Sample 3: " + samp3score)
-    print("Keyword stylometry complete")
-    # turn into a list
-    resultdict = {"ctrl_hash": ctrl, "samp1_hash": samp1, "samp2_hash": samp2, "samp3_hash": samp3, "samp1_score": samp1score, "samp2_score": samp2score, "samp3_score": samp3score}
-    return resultdict
+def results_as_string(ctrl_dict: dict, sample_list: List[str], sample_scores: List[str]):
+    result_string = "\n~ Ctrl dictionary: " + str(ctrl_dict) + " ~\n\n~ "
+    for sample in sample_list:
+        result_string += str(sample) + " ~ "
+    result_string += "\n~ "
+    for score in sample_scores:
+        result_string += str(score) + " ~ "
+    return result_string
 
 
-def create_hashtable_alpha(textsamp):
+def run_stylometry_on_dict(ctrl_dict: dict, samples_list: List[str]):
+    if ctrl_dict is None:
+        raise error_dict["CTRL_IS_NONE"]
+    
+    if samples_list is None:
+        raise error_dict["SAMP_LIST_IS_NONE"]
+
+    for sample in samples_list:
+        if sample is not None:
+            samp_dict = create_character_hashtable(sample)
+            samp_score = str(tally_weighted_score(ctrl_dict, samp_dict))
+            print("Unigram score between control and Sample: " + samp_score)
+        else:
+            print("Sample text is None, skipping sample.")
+    
+    print("Unigram stylometry complete")
+    return results_as_string
+
+
+def create_character_hashtable(text_samp: str) -> dict:
     dict = {}
-    line = textsamp.lower()
-    # remove everything that isn't an alphanumeric character
-    i = 0
-    while i < len(line):
-        if line[i] not in dict and line[i].isalpha():
-            dict.update([(line[i], 1)])
-        elif line[i] in dict and line[i].isalpha():
-            newvalue = dict.pop(line[i])
-            newvalue = newvalue + 1
-            dict.update([(line[i], newvalue)])
-        i = i + 1
+    lowercase_line = text_samp.lower()
+    for letter in lowercase_line:
+        if letter.isalpha():
+            if letter not in dict:
+                dict.update([(letter, 1)])
+            elif letter in dict:
+                newvalue = dict.pop(letter)
+                newvalue += 1
+                dict.update([(letter, newvalue)])
     return dict
 
 
-def tally_weighted_score(control, compare, e):
+def tally_weighted_score(ctrl_dict: CharacterFrequencyDict, sample_dict: CharacterFrequencyDict) -> int:
     score = 0
-    for key in e:
-        if key in compare:
-            freqctrl = control.get(key)
-            freqcomp = compare.get(key)
-            if freqcomp >= 0.80*freqctrl and freqcomp <=1.20*freqctrl:
-                if freqcomp > 0.95*freqctrl and freqcomp < 1.05*freqctrl:
-                    score = score + 2
+    ctrl_keys = ctrl_dict.keys()
+    for key in ctrl_keys:
+        if key in sample_dict:
+            freq_ctrl = ctrl_dict.get(key)
+            freq_comp = sample_dict.get(key)
+            if freq_comp >= 0.80 * freq_ctrl and freq_comp <= 1.20 * freq_ctrl:
+                if freq_comp > 0.95 * freq_ctrl and freq_comp < 1.05 * freq_ctrl:
+                    score += 2
                 else:
-                    score = score + 1
+                    score += 1
     return score
 
 
 if __name__ == "__main__":
-    main("Hello there", "Bye there", "Bye Bye", "Yes")
+    main("Hello there", ["Bye there", "Bye Bye", "Yes"])
