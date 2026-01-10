@@ -4,7 +4,7 @@ they want to use for the analysis. This module compares the
 frequency of individual letters in a control text to those in comparison samples.
 '''
 
-from typing import Dict, List
+from typing import List
 from utils import CharacterFrequencyDict, ERROR_DICT
 import sys
 
