@@ -39,27 +39,8 @@ def run_stylometry_on_text(
         else:
             print("Sample text at index " + str(index) + " is None, skipping sample.")
     
-    print("Unigram stylometry complete")
+    print(f"{number_of_ngrams}-gram stylometry complete")
     print(results_as_string(ctrl_dict, samples_text_list, sample_scores))
-
-
-def run_stylometry_on_dict(ctrl_dict: CharacterFrequencyDict, samples_list: List[str]):
-    if ctrl_dict is None:
-        raise error_dict["CTRL_IS_NONE"]
-    
-    if samples_list is None:
-        raise error_dict["SAMP_LIST_IS_NONE"]
-
-    for sample in samples_list:
-        if sample is not None:
-            samp_dict = create_character_hashtable(sample)
-            samp_score = str(tally_weighted_score(ctrl_dict, samp_dict))
-            print("Unigram score between control and Sample: " + samp_score)
-        else:
-            print("Sample text is None, skipping sample.")
-    
-    print("Unigram stylometry complete")
-    return results_as_string
 
 
 def create_character_hashtable(text_samp: str, number_of_ngrams: int = 1) -> CharacterFrequencyDict:
@@ -109,4 +90,4 @@ def results_as_string(ctrl_dict: CharacterFrequencyDict, sample_list: List[str],
 
 
 if __name__ == "__main__":
-    main("Hello there", ["Bye there", "Bye Bye", "Yes"], int(sys.argv[1]))
+    main("Hello there", ["Bye there", "Bye Bye", "Yes"], int(ARGUMENTS[1]))
