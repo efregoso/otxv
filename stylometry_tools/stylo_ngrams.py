@@ -5,7 +5,7 @@ frequency of individual letters in a control text to those in comparison samples
 '''
 
 from typing import List
-from utils import CharacterFrequencyDict, ERROR_DICT
+from stylometry_tools.utils import CharacterFrequencyDict, ERROR_DICT
 import sys
 
 
