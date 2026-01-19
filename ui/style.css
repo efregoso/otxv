@@ -23,7 +23,7 @@
 	font-weight:bold;
 }
 
-#top-nav a:hover{
+#top-nav a:hover {
 	background-color:darkgrey;
 }
 
@@ -33,7 +33,7 @@
 	width:100%;
 }
 
-#welcome {
+#welcome-header {
 	font-size:100px;
 	text-align:center;
 }
@@ -45,7 +45,7 @@ nav #site-title {
 	top:0%;
 }
 
-nav #site-title a:hover{
+nav #site-title a:hover {
 	text-decoration:none !important;
 }
 
@@ -55,7 +55,7 @@ textarea {
 	margin-top:5px;
 }
 
-body{
+body {
 	font-family:"Lato";
 	background-color:lightgrey;
 }
