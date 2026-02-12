@@ -1,4 +1,4 @@
-from ping import verbose_ping
+from ui.port_checker.ping import verbose_ping
 import pprint
 
 
