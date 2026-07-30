@@ -2,3 +2,4 @@ ui/stylometry/stylo/stylo.iml
 __pycache__/
 .idea/
 otxv.iml
+venv/
