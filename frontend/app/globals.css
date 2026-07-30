@@ -1,0 +1,55 @@
+h1 {
+	text-align:center;
+}
+
+#main-body {
+	padding-top:100px;
+	height:100%;
+	width:100%;
+}
+
+#welcome-header {
+	font-size:100px;
+	text-align:center;
+}
+
+textarea {
+	width:100%;
+	margin-bottom:5px;
+	margin-top:5px;
+}
+
+body {
+	font-family:"Lato";
+	background-color:lightgrey;
+}
+
+#welcome-paragraph {
+	text-align:center;
+}
+
+#ip-info, #stylo-info {
+	border:solid 10px black;
+	margin:7px;
+	background-color:white;
+}
+
+#ip-info td, #ip-info th {
+	border:solid 2px black;
+}
+
+@font-face {
+	font-family: "Lato";
+	src: url("./common/fonts/Lato-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Lato Bold";
+	src: url("./common/fonts/Lato-Bold.ttf") format("truetype");
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Merriweather";
+	src: url("./common/fonts/merriweather.regular.ttf") format("truetype");
+}

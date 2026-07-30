@@ -1,0 +1,36 @@
+#top-nav {
+	position: fixed;
+	width: 100%;
+	height: 10%;
+	top: 0px;
+	left: 0px;
+	background-color: black;
+	/** z-index: 2; **/
+}
+
+#top-nav a {
+	text-decoration:none !important;
+	float: right;
+	display: block;
+	padding: 10px;
+	margin: 5px;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
+#top-nav a:hover {
+	background-color:darkgrey;
+}
+
+nav #site-title {
+	float: left;
+	font-size: 50px;
+	position: fixed;
+	top: 0%;
+}
+
+nav #site-title a:hover {
+	text-decoration: none !important;
+}
+

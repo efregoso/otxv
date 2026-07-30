@@ -11,7 +11,7 @@ FROM dhi.io/node:24-alpine3.22-dev AS dependencies
 WORKDIR /app
 
 # Copy package-related files first to leverage Docker's caching mechanism
-COPY frontend/otxv/package.json frontend/otxv/yarn.lock* frontend/otxv/package-lock.json* frontend/otxv/pnpm-lock.yaml* frontend/otxv/.npmrc* ./
+COPY frontend/package.json frontend/yarn.lock* frontend/package-lock.json* frontend/pnpm-lock.yaml* frontend/.npmrc* ./
 
 # Install project dependencies with frozen lockfile for reproducible builds
 RUN --mount=type=cache,target=/root/.npm \
@@ -40,7 +40,7 @@ WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 
 # Copy application source code
-COPY frontend/otxv/ .
+COPY frontend/ .
 
 ENV NODE_ENV=production
 
