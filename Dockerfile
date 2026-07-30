@@ -45,7 +45,7 @@ FROM php:apache
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Copy app files from the app directory.
-COPY ./mockui /var/www/html
+COPY ./ui /var/www/html
 
 # Switch to a non-privileged user (defined in the base image) that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
