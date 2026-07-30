@@ -35,7 +35,6 @@ Collects and validates API key from browser, initializes ElasticSearch,
 & loads all pulse objects into the cache.
 """
 
-
 def main():
     print("Initializing socket.")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,7 +42,6 @@ def main():
     s.bind((HOST, PORT))
     s.listen()
     conn, addr = s.accept()
-
     # TODO: MAKE ASYNC: retrieve API key from login page & validate
     while is_validated is False:
         is_validated = validate_apikey()
@@ -144,21 +142,14 @@ A debugging function for printing all indicators in a pulse
 def cache_indicator_data(pulse):
     for indicator in pulse["indicators"]:
         cache_hits_filestream.write(
-            "indicator: "
-            + indicator["indicator"]
-            + "\ndescription: "
-            + str(indicator["description"])
-            + "\ncreated: "
-            + str(indicator["created"])
-            + "\ntitle: "
-            + str(indicator["title"])
-            + "\ncontent: "
-            + str(indicator["content"])
-            + "\ntype: "
-            + str(indicator["type"])
-            + "\nid: "
-            + str(indicator["id"])
-            + "\n\n"
+            "indicator: " + indicator["indicator"] + 
+            "\ndescription: " + str(indicator["description"]) + 
+            "\ncreated: " + str(indicator["created"]) + 
+            "\ntitle: " + str(indicator["title"]) + 
+            "\ncontent: " + str(indicator["content"]) + 
+            "\ntype: " + str(indicator["type"]) + 
+            "\nid: " + str(indicator["id"]) + 
+            "\n\n"
         )
 
 
