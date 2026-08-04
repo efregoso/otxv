@@ -8,7 +8,7 @@ export const HOME_LINK = { label: "OTX-V", href: "/", icon: undefined };
 
 export const NAV_LINKS: NavLink[] = [
   { label: "IP Lookup", href: "/ip_lookup", icon: undefined },
-  { label: "Port Checker", href: "legacy/port_checker/portchecker.html", icon: undefined },
+  { label: "Port Checker", href: "/port_checker", icon: undefined },
   { label: "STYLO", href: "legacy/stylometry/stylo.html", icon: undefined },
   { label: "Kibana", href: "http://localhost:32771/app/kibana", icon: undefined },
   { label: "Glossary", href: "/glossary", icon: undefined }
