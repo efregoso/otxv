@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
-, "app/common/navigation_bar"  ],
+    "**/*.mts",
+    "app/common/components/navigation_bar",
+  ],
   "exclude": ["node_modules"]
 }

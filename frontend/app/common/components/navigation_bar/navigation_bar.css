@@ -1,15 +1,14 @@
-#top-nav {
-	position: fixed;
+.nav-bar-container {
+	position: static;
 	width: 100%;
-	height: 10%;
+	height: 50px;
 	top: 0px;
 	left: 0px;
 	background-color: black;
-	/** z-index: 2; **/
 }
 
-#top-nav a {
-	text-decoration:none !important;
+.nav-bar-container a {
+	text-decoration: none !important;
 	float: right;
 	display: block;
 	padding: 10px;
@@ -19,7 +18,11 @@
 	font-weight: bold;
 }
 
-#top-nav a:hover {
+.nav-bar-container #home-link {
+	float: left;
+}
+
+.nav-bar-container a:hover {
 	background-color:darkgrey;
 }
 
