@@ -1,0 +1,36 @@
+.stylometry-content-container {
+ 	display: flex;
+ 	flex-direction: column;
+ 	align-items: center;
+ 	justify-content: center;
+ 	margin-top: 20px;
+ 	margin-bottom: 20px;
+}
+
+.stylometry-form-stack {
+ 	display: flex;
+ 	flex-direction: column;
+ 	align-items: center;
+ 	justify-content: center;
+ 	margin-top: 20px;
+ 	margin-bottom: 20px;
+    width: 100%
+}
+
+.stylometry-control-text-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.stylometry-comparison-text-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.stylometry-comparison-text-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
