@@ -3,3 +3,5 @@ __pycache__/
 .idea/
 otxv.iml
 venv/
+
+**/node_modules
