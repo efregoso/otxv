@@ -7,6 +7,7 @@ interface NavLink {
 export const HOME_LINK = { label: "OTX-V", href: "/", icon: undefined };
 
 export const NAV_LINKS: NavLink[] = [
+  { label: "Data Dashboard", href: "/threat_dashboard", icon: undefined },
   { label: "IP Lookup", href: "/ip_lookup", icon: undefined },
   { label: "Port Checker", href: "/port_checker", icon: undefined },
   { label: "STYLO", href: "/stylometry", icon: undefined },

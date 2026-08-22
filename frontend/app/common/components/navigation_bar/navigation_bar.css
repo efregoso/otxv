@@ -10,7 +10,6 @@
 .nav-bar-container a {
 	text-decoration: none !important;
 	float: right;
-	display: block;
 	padding: 10px;
 	margin: 5px;
 	text-align: center;
