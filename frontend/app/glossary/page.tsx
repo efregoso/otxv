@@ -12,7 +12,7 @@ import "./glossary.css";
 export default function GlossaryPage() {
 
     return (
-    <div id="main-body" className="">
+    <div id="main-body">
         <h2>Glossary</h2>
         <TableContainer component={Paper}>
             <Table className="glossary-table">
