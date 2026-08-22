@@ -5,3 +5,5 @@ otxv.iml
 venv/
 
 **/node_modules
+**/package-lock.json
+**/package.json
