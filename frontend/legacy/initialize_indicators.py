@@ -8,7 +8,7 @@ import stylometry_tools.stylo_ngrams as stylo_ngrams
 import ui.port_checker.port_checker as port_checker
 import ui.ip_lookup.ip_lookup as ip_lookup
 import asyncio
-from utils import ELASTICSEARCH_MAPPING, ELASTICSEARCH_INDICATOR_MAPPING, TEST_API_KEY
+from frontend.legacy.utils import ELASTICSEARCH_MAPPING, ELASTICSEARCH_INDICATOR_MAPPING, TEST_API_KEY
 
 # Global instance of ElasticSearch for sending/organizing data
 es = Elasticsearch()
