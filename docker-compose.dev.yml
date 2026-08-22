@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      target: client-dev
     ports:
       - "8081:3000"
     volumes:
@@ -12,3 +13,13 @@ services:
     environment:
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: api-dev
+    ports:
+     - "4000:4000"
+    volumes:
+     - ./api:/api
+     - /api/node_modules

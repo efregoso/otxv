@@ -1,14 +1,39 @@
-FROM dhi.io/node:24-alpine3.22-dev
-
+# Base frontend image
+FROM dhi.io/node:24-alpine3.22-dev AS frontend-base
 WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json* frontend/yarn.lock* frontend/pnpm-lock.yaml* ./
 
+# Base API image
+FROM dhi.io/node:24-alpine3.22-dev AS backend-base
+WORKDIR /api
+
+
+FROM frontend-base AS client-base
+COPY frontend/package.json frontend/package-lock.json* frontend/yarn.lock* frontend/pnpm-lock.yaml* ./
 RUN if [ -f package-lock.json ]; then npm ci; \
     elif [ -f yarn.lock ]; then corepack enable yarn && yarn install --frozen-lockfile; \
     elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm install --frozen-lockfile; \
     else echo "No lockfile found." && exit 1; fi
+COPY frontend/ .
 
+
+FROM client-base AS client-dev
+ENV NODE_ENV=development
 EXPOSE 3000
+CMD ["npm", "run", "dev"]
 
+
+FROM client-base AS client-build
+RUN npm run build
+
+
+FROM backend-base AS api-dev
+ENV NODE_ENV=development
+COPY api/package.json api/package-lock.json* api/yarn.lock* api/pnpm-lock.yaml* ./
+RUN if [ -f package-lock.json ]; then npm ci; \
+    elif [ -f yarn.lock ]; then corepack enable yarn && yarn install --frozen-lockfile; \
+    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm install --frozen-lockfile; \
+    else echo "No lockfile found." && exit 1; fi
+COPY api/src ./src
+EXPOSE 4000
 CMD ["npm", "run", "dev"]
