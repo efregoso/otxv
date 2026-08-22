@@ -4,8 +4,8 @@
   "description": "",
   "license": "ISC",
   "author": "e.m.fregoso@proton.me",
-  "type": "commonjs",
-  "main": "src/index.js",
+  "type": "module",
+  "main": "src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch src/server.ts"
